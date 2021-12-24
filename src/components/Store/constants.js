@@ -1,0 +1,1 @@
+export const GET_PHOTOS_FROM_NASA = 'GET_PHOTOS_FROM_NASA';
