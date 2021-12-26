@@ -1,0 +1,12 @@
+.wrapper-info {
+    display: flex;
+    justify-content:space-evenly;
+    font-family: 'Press Start 2P';
+    font-size: large;
+}
+
+.title-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
