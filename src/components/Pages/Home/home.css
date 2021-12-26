@@ -4,6 +4,19 @@
     justify-content: center;
 }
 
+.home-sub-title {
+    background-color: black;
+    color: aliceblue;
+    padding: 1px;
+    padding-left: 50px;
+}
+
+.home-sub-title h2 {
+    font-family: 'Press Start 2P';
+    font-weight: 400;
+    font-size: x-large;
+}
+
 .nonono {
     width: 800px;
 }

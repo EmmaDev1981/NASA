@@ -1,25 +1,25 @@
-.container-game {
+.container-photo-fav {
     flex-wrap: wrap;
     border: 1px solid black;
     margin: 5px;
     padding: 0px;
 }
 
-.container-game:hover {
+.container-photo-fav:hover {
     animation: myAnim 1s ease 0s 1 normal forwards;;
     cursor: pointer;
 }
 
-.game-div {
+.photo-fav-div {
     display: flex;
     margin: 0px;
     overflow: hidden;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     
 }
 
-.game-div img {
+.photo-fav-div img {
     display: block;
     object-fit: cover;
     width: 100%;
@@ -48,6 +48,15 @@
    justify-content: center;
    align-items: center;
    margin: 10px;
+}
+
+.fav-icon {
+    margin-right: 80px;
+    color: red;
+}
+
+.info-icon {
+    color: blue;
 }
 
 button {

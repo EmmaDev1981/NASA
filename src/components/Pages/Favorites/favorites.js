@@ -25,6 +25,9 @@ function Favorites({ photos }) {
   return (
     <div className="container">
       <Navigation />
+      <div className="home-sub-title">
+        <h2>Favorites</h2>
+      </div>
       <div className="games-div">
         <h3></h3>
         {currentCards.length >= 1 ? (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import {
   getPhotosByModel,
@@ -23,12 +23,13 @@ function Filter({
   getManifestByModel,
   manifest,
   getPhotosBySearch,
+  photos
 }) {
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [modelRover, setModelRover] = React.useState("");
-  const [cameraRover, setCameraRover] = React.useState("");
-  const [selectedValue, setSelectedValue] = React.useState("a");
-  const [martianDate, setMartianDate] = React.useState(1000)
+  const [startDate, setStartDate] = useState(new Date());
+  const [modelRover, setModelRover] = useState("");
+  const [cameraRover, setCameraRover] = useState("");
+  const [selectedValue, setSelectedValue] = useState("a");
+  const [martianDate, setMartianDate] = useState(1000)
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -86,6 +87,17 @@ function Filter({
     })
   }
 
+  const handleClickVariantResponse = () => {
+    enqueueSnackbar(`PHOTOS FOUNDED: ${photos.length}`, {
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'left',
+      },
+      TransitionComponent: Slide,
+      variant: 'info',
+    })
+  }
+
   return (
     <div className="container-div">
       <FormControl component="fieldset">
@@ -94,7 +106,7 @@ function Filter({
           row
           aria-label="gender"
           name="row-radio-buttons-group"
-          defaultValue="curiosity"
+          defaultValue={"curiosity"}
         >
           <FormControlLabel
             value="curiosity"
@@ -119,8 +131,8 @@ function Filter({
         name=""
         id=""
       >
-        <option className="option" value="default">
-          Filter by Camera
+        <option className="option" value="fhaz">
+          Select the Camera
         </option>
         {camerasArr &&
           camerasArr.map((g) => (
@@ -137,6 +149,7 @@ function Filter({
           disabled={selectedValue === "b" ? true : false}
         />
       </div>
+      <p className="date-type">EARTH</p>
       <Radio
         checked={selectedValue === 'a'}
         onChange={handleChange}
@@ -151,6 +164,7 @@ function Filter({
         name="radio-buttons"
         inputProps={{ 'aria-label': 'B' }}
       />
+      <p className="date-type">SOL</p>
       <Box
       component="form"
       sx={{
@@ -178,6 +192,7 @@ function Filter({
 const mapStateToProps = (state) => {
   return {
     manifest: state.manifest,
+    photos: state.photos
   };
 };
 

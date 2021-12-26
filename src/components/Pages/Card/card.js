@@ -1,12 +1,15 @@
 import React from 'react'
 import './card.css'
+import noimage from '../../assets/noimage.jpg'
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {addToFavorites} from '../../Store/actions'
+import InfoIcon from '@mui/icons-material/Info';
+import {addToFavorites, getPhotoDetails} from '../../Store/actions'
 import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import Slide from '@material-ui/core/Slide';
+import {Link} from 'react-router-dom'
 
 function Card(props) {
 
@@ -23,6 +26,17 @@ function Card(props) {
     })
   }
 
+  const handleClickVariantAlreadyAdded = () => {
+    enqueueSnackbar('PHOTO ALREADY ADDED', {
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'left',
+      },
+      TransitionComponent: Slide,
+      variant: 'info',
+    })
+  }
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handlePopoverOpen = (event) => {
@@ -34,15 +48,25 @@ function Card(props) {
   };
 
   const handleAddToFavorites = () => {
-    props.addToFavorites(props.id)
-    handleClickVariantOk()
+    const alreadyAdded = props.favorites.some(p => p.id === props.id);
+    if (alreadyAdded) {
+      handleClickVariantAlreadyAdded()
+    } else {
+      props.addToFavorites(props.id)
+      handleClickVariantOk()
+    }
   }
+
+  const handleInfoDetails = () => {
+    props.getPhotoDetails(props.id)
+  }
+
 
   const open = Boolean(anchorEl);
     
     return (
-      <div className="container-game">
-        <div className="game-div">
+      <div className="container-photos">
+        <div className="photos-div">
           {props.image ? (
             <Typography
               aria-owns={open ? "mouse-over-popover" : undefined}
@@ -50,17 +74,20 @@ function Card(props) {
               onMouseEnter={handlePopoverOpen}
               onMouseLeave={handlePopoverClose}
             >
-              <img src={`${props.image}`} alt="Videogame" className="Img"></img>
+              <img src={`${props.image}`} alt="photo" className="Img"></img>
             </Typography>
           ) : (
-            {
-              /* <img src={photo} alt="Videogame" className="Img"></img> */
-            }
+              <img src={noimage} alt="notFound" className="Img"></img>
           )}
         </div>
 
         <div className="favorite-icon">
-            <FavoriteIcon onClick={handleAddToFavorites}/>
+            <FavoriteIcon className='fav-icon' onClick={handleAddToFavorites}/>
+            {props.id && (
+            <Link to={`/details`}>
+            <InfoIcon className='info-icon' onClick={handleInfoDetails}/>
+            </Link>
+          )}
         </div>
         <Popover
           id="mouse-over-popover"
@@ -83,5 +110,11 @@ function Card(props) {
     );
 }
 
-export default connect (null, {addToFavorites})(Card)
+function mapStateToProps (state) {
+  return {
+    favorites: state.favorites
+  }
+}
+
+export default connect (mapStateToProps, {addToFavorites, getPhotoDetails})(Card)
 

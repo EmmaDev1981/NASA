@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import imageLanding from "../../assets/landing.png";
 import { connect } from "react-redux";
@@ -6,7 +6,7 @@ import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
 import "./landing.css";
 
 function Landing({ getPhotosFromApi, getManifestByModel }) {
-  React.useEffect(() => {
+  useEffect(() => {
     getPhotosFromApi();
     getManifestByModel("curiosity");
   }, []);

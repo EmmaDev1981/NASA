@@ -6,6 +6,8 @@ import {
   GET_PHOTOS_BY_SEARCH,
   ADD_TO_FAVORITES,
   DELETE_FROM_FAVORITES,
+  GET_PHOTO_DETAILS,
+  GET_PHOTO_DETAILS_FAVORITES
 } from "./constants";
 
 //get photos by default from API
@@ -104,5 +106,19 @@ export function getPhotosBySearch(data) {
   export function deleteFromFavorites(id) {
     return function (dispatch) {
       dispatch({ type: DELETE_FROM_FAVORITES, payload: id });
+    };
+  }
+
+  // Details by :id
+export function getPhotoDetails(id) {
+  return function (dispatch) {
+    dispatch({ type: GET_PHOTO_DETAILS, payload: id });
+  };
+}
+
+  // Details from Favorites by :id
+  export function getPhotoDetailsFavorites(id) {
+    return function (dispatch) {
+      dispatch({ type: GET_PHOTO_DETAILS_FAVORITES, payload: id });
     };
   }

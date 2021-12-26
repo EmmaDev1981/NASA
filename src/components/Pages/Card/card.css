@@ -1,16 +1,16 @@
-.container-game {
+.container-photos {
     flex-wrap: wrap;
     border: 1px solid black;
     margin: 5px;
     padding: 0px;
 }
 
-.container-game:hover {
+.container-photos:hover {
     animation: myAnim 1s ease 0s 1 normal forwards;;
     cursor: pointer;
 }
 
-.game-div {
+.photos-div {
     display: flex;
     margin: 0px;
     overflow: hidden;
@@ -19,7 +19,7 @@
     
 }
 
-.game-div img {
+.photos-div img {
     display: block;
     object-fit: cover;
     width: 100%;
@@ -48,6 +48,15 @@
    justify-content: center;
    align-items: center;
    margin: 10px;
+}
+
+.fav-icon {
+    margin-right: 80px;
+    color: red;
+}
+
+.info-icon {
+    color:blue
 }
 
 button {

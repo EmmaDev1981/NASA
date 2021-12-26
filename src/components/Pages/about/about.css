@@ -1,0 +1,22 @@
+.container-about {
+    margin-top: 40px;
+    font-family: 'Press Start 2P';
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-about h1 {
+    color: rgb(7, 60, 105);
+}
+
+.description-about {
+    width: 700px;
+    text-align: justify;
+  text-justify: inter-word;
+}
+
+.description-about p {
+    font-size: large;
+}

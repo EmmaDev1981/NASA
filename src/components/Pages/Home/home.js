@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import Navigation from "../Nav/nav";
 import Pagination from "../Pagination/pagination";
 import Card from "../Card/card";
@@ -8,16 +8,11 @@ import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
 import "./home.css";
 import Manifest from "../Manifest/manifest";
 
-function Home({ getPhotosFromApi, getManifestByModel, photos }) {
-  useEffect(() => {
-    getManifestByModel("curiosity");
-    getPhotosFromApi();
-  }, []);
+function Home({ photos }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(24);
 
-  //pagination index
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
   var currentCards;
@@ -33,11 +28,14 @@ function Home({ getPhotosFromApi, getManifestByModel, photos }) {
   return (
     <div className="container">
       <Navigation />
+      <div className="home-sub-title">
+        <h2>Home</h2>
+      </div>
       <Filter />
       <Manifest />
       <div className="games-div">
         <h3></h3>
-        {currentCards.length > 1 ? (
+        {currentCards.length >= 1 ? (
           currentCards.map((g) => (
             <Card
               key={g.id}
@@ -50,12 +48,11 @@ function Home({ getPhotosFromApi, getManifestByModel, photos }) {
           ))
         ) : typeof currentCards === "string" ? (
           <div>
-            {/* <img className="nonono" src={notFound} alt=""></img> */}
+            <p>LOADING....</p>
           </div>
         ) : (
           <div>
-            {/* <img className="loading" src={loading} alt=""></img> */}
-            <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE</h1>
+            <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE OR CAMERA</h1>
           </div>
         )}
       </div>

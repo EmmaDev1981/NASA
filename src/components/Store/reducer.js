@@ -5,12 +5,15 @@ import {
   GET_PHOTOS_BY_SEARCH,
   ADD_TO_FAVORITES,
   DELETE_FROM_FAVORITES,
+  GET_PHOTO_DETAILS,
+  GET_PHOTO_DETAILS_FAVORITES
 } from "./constants";
 
 const initialState = {
   photos: [],
   manifest: {},
   favorites: [],
+  photoDetails: null
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -52,6 +55,18 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         manifest: action.payload,
+      };
+
+    case GET_PHOTO_DETAILS:
+      return {
+        ...state,
+        photoDetails: state.photos.filter((p) => p.id === action.payload),
+      };
+
+    case GET_PHOTO_DETAILS_FAVORITES:
+      return {
+        ...state,
+        photoDetails: state.favorites.filter((p) => p.id === action.payload),
       };
     
     default:

@@ -1,0 +1,52 @@
+.details-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.info-photo {
+    display: flex;
+    justify-content: center;
+    border: 2px solid black;
+}
+
+.info-photo img{
+    max-width: 600px;
+    max-height: 600px;
+}
+
+.info-title-details {
+    display: flex;
+    justify-content: center;
+}
+
+.back-button-details {
+    display: flex;
+    justify-content: center;
+}
+
+.back-button-details button{
+    appearance: none;
+    background-color: #abb2b4;
+    border: 1px solid #1b1f2326;
+    border-radius: 6px;
+    box-shadow: #1b1f231a 0 1px 0;
+    box-sizing: border-box;
+    color: #0e0c0c;
+    cursor: pointer;
+    font-family: 'Press Start 2P';
+    font-weight: 400;
+    font-size: large;
+    line-height: 20px;
+    padding: 10px;
+    margin: 20px;
+    margin-left: 20px;
+    height: 40px;
+}
+
+.back-button-details button:hover {
+    color: white ;
+    background-color: #0e0c0c;
+}

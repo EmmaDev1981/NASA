@@ -3,10 +3,12 @@ import "./cardFav.css";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteFromFavorites } from "../../Store/actions";
+import { deleteFromFavorites, getPhotoDetailsFavorites } from "../../Store/actions";
 import { connect } from "react-redux";
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import {Link} from 'react-router-dom'
+import InfoIcon from '@mui/icons-material/Info';
 
 function CardFav(props) {
   const { enqueueSnackbar } = useSnackbar();
@@ -37,11 +39,15 @@ function CardFav(props) {
     handleClickVariantDelete();
   };
 
+  const handleInfoDetails = () => {
+    props.getPhotoDetailsFavorites(props.id)
+  }
+
   const open = Boolean(anchorEl);
 
   return (
-    <div className="container-game">
-      <div className="game-div">
+    <div className="container-photo-fav">
+      <div className="photo-fav-div">
         {props.image ? (
           <Typography
             aria-owns={open ? "mouse-over-popover" : undefined}
@@ -49,7 +55,7 @@ function CardFav(props) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <img src={`${props.image}`} alt="Videogame" className="Img"></img>
+            <img src={`${props.image}`} alt="photo" className="Img"></img>
           </Typography>
         ) : (
           {
@@ -59,7 +65,12 @@ function CardFav(props) {
       </div>
 
       <div className="favorite-icon">
-        <DeleteIcon onClick={handleDeleteFromFavorites} />
+        <DeleteIcon className='fav-icon' onClick={handleDeleteFromFavorites} />
+        {props.id && (
+            <Link to={`/details`}>
+            <InfoIcon className='info-icon' onClick={handleInfoDetails}/>
+            </Link>
+          )}
       </div>
       <Popover
         id="mouse-over-popover"
@@ -82,4 +93,4 @@ function CardFav(props) {
   );
 }
 
-export default connect(null, { deleteFromFavorites })(CardFav);
+export default connect(null, { deleteFromFavorites, getPhotoDetailsFavorites })(CardFav);
