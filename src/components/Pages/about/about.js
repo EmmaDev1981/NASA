@@ -5,7 +5,7 @@ function About() {
     return (
         <div>
             <Navigation/>
-            <h1>About</h1>
+            <p></p>
         </div>
     )
 }

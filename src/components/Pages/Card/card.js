@@ -2,7 +2,6 @@ import React from 'react'
 import './card.css'
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Fab from '@mui/material/Fab';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {addToFavorites} from '../../Store/actions'
 import { connect } from 'react-redux';

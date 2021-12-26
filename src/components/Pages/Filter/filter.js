@@ -15,6 +15,8 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useSnackbar } from 'notistack';
+import Slide from '@material-ui/core/Slide';
 
 function Filter({
   getPhotosByModel,
@@ -25,19 +27,24 @@ function Filter({
   const [startDate, setStartDate] = React.useState(new Date());
   const [modelRover, setModelRover] = React.useState("");
   const [cameraRover, setCameraRover] = React.useState("");
-
   const [selectedValue, setSelectedValue] = React.useState("a");
-  console.log(selectedValue)
+  const [martianDate, setMartianDate] = React.useState(1000)
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
+  var dates = `sol=1000`
+  if(selectedValue === 'a') {
+    dates = `earth_date=${startDate.toISOString().split("T")[0]}`
+  }
+  if(selectedValue === 'b') {
+    dates = `sol=${martianDate}`
+  }
+
   const data = {
-    date:
-      startDate.toISOString().split("T")[0] ||
-      new Date().toISOString().split("T")[0],
-    camera: cameraRover || "all",
+    date: dates,
+    camera: cameraRover || "fhaz",
     rover: modelRover || "curiosity",
   };
 
@@ -57,9 +64,27 @@ function Filter({
     setCameraRover(e.target.value);
   };
 
+  const handleMatianSolDate = (e) => {
+    setMartianDate(e.target.value)
+  }
+
   const handleSubmit = () => {
     getPhotosBySearch(data);
+    handleClickVariantOk()
   };
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickVariantOk = () => {
+    enqueueSnackbar(`SEARCH: ${data.rover.toUpperCase()} -- ${data.camera.toUpperCase()} -- ${data.date.toUpperCase()}`, {
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'left',
+      },
+      TransitionComponent: Slide,
+      variant: 'success',
+    })
+  }
 
   return (
     <div className="container-div">
@@ -136,6 +161,7 @@ function Filter({
     >
       <TextField
         label="Martian SOL"
+        onChange={handleMatianSolDate}
         variant="standard"
         color="warning"
         disabled={selectedValue === "a" ? true : false}
