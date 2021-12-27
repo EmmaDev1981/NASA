@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Navigation from "../Nav/nav";
 import Pagination from "../Pagination/pagination";
 import Card from "../Card/card";
@@ -14,7 +14,7 @@ function Home({ photos }) {
     getPhotosFromApi();
     getManifestByModel("curiosity");
   }, []);
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(24);
 
