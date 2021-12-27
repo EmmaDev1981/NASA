@@ -1,4 +1,4 @@
-# SCientia App -Online Learning-
+# NASA API APP - Mars Rover Expeditions -
 
 - [ ] React
 - [ ] Redux
