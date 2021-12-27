@@ -1,13 +1,28 @@
 .container-div{
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin-top: 20px;
 }
 
 .selectCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
     margin: 20px;
-    width: 400px;
+    width: 300px;
+    font-family: 'Press Start 2P';
+    font-weight: 400;
+    font-size: large;
+    border-radius: 2px;
+}
+
+.selectCont-search {
+    padding: 10px;
+    margin: 20px;
+    width: 500px;
     font-family: 'Press Start 2P';
     font-weight: 400;
     font-size: large;

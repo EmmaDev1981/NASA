@@ -43,12 +43,10 @@ function Favorites({ photos }) {
           ))
         ) : typeof currentCards === "string" ? (
           <div>
-            {/* <img className="nonono" src={notFound} alt=""></img> */}
             <h1>Not found</h1>
           </div>
         ) : (
           <div>
-            {/* <img className="loading" src={loading} alt=""></img> */}
             <h1>ANY FAVORITE PHOTO ADDED</h1>
           </div>
         )}

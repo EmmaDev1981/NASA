@@ -7,7 +7,8 @@ import {
   ADD_TO_FAVORITES,
   DELETE_FROM_FAVORITES,
   GET_PHOTO_DETAILS,
-  GET_PHOTO_DETAILS_FAVORITES
+  GET_PHOTO_DETAILS_FAVORITES,
+  ADD_SEARCH_PARAMS_FAVORITES
 } from "./constants";
 
 //get photos by default from API
@@ -15,7 +16,7 @@ export function getPhotosFromApi() {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=nrtsuf8mffXoZWnXIArIzsJ8GIjg8sZoMyxUcqeZ`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1200&api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then((response) => {
         let { photos } = response.data;
@@ -36,7 +37,7 @@ export function getPhotosByModel(model) {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/${model}/photos?sol=2000&api_key=nrtsuf8mffXoZWnXIArIzsJ8GIjg8sZoMyxUcqeZ`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/${model}/photos?sol=2000&api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then((response) => {
         let { photos } = response.data;
@@ -57,7 +58,7 @@ export function getManifestByModel(model) {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/manifests/${model}/?api_key=nrtsuf8mffXoZWnXIArIzsJ8GIjg8sZoMyxUcqeZ`
+        `https://api.nasa.gov/mars-photos/api/v1/manifests/${model}/?api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then((response) => {
         dispatch({
@@ -79,7 +80,7 @@ export function getPhotosBySearch(data) {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=nrtsuf8mffXoZWnXIArIzsJ8GIjg8sZoMyxUcqeZ`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=${process.env.REACT_APP_API_KEY}`
         )
       .then((response) => {
         let { photos } = response.data;
@@ -120,5 +121,12 @@ export function getPhotoDetails(id) {
   export function getPhotoDetailsFavorites(id) {
     return function (dispatch) {
       dispatch({ type: GET_PHOTO_DETAILS_FAVORITES, payload: id });
+    };
+  }
+
+  // Details from Favorites by :id
+  export function addSearchParamFavorites(data) {
+    return function (dispatch) {
+      dispatch({ type: ADD_SEARCH_PARAMS_FAVORITES, payload: data });
     };
   }

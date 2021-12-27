@@ -1,77 +1,76 @@
 .container-photo-fav {
-    flex-wrap: wrap;
-    border: 1px solid black;
-    margin: 5px;
-    padding: 0px;
+  flex-wrap: wrap;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 0px;
 }
 
 .container-photo-fav:hover {
-    animation: myAnim 1s ease 0s 1 normal forwards;;
-    cursor: pointer;
+  animation: myAnim 1s ease 0s 1 normal forwards;
+  cursor: pointer;
 }
 
 .photo-fav-div {
-    display: flex;
-    margin: 0px;
-    overflow: hidden;
-    width: 400px;
-    height: 400px;
-    
+  display: flex;
+  margin: 0px;
+  overflow: hidden;
+  width: 400px;
+  height: 400px;
 }
 
 .photo-fav-div img {
-    display: block;
-    object-fit: cover;
-    width: 100%;
-    min-height: 100%;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  min-height: 100%;
 }
 
 .infoContGenres {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .infoRating {
-    display: flex;
-    justify-content: center;
-    height: 35px;
-    padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  height: 35px;
+  padding-bottom: 5px;
 }
 
 .div-button {
-    display: block;
-    justify-content: center;
+  display: block;
+  justify-content: center;
 }
 
 .favorite-icon {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 .fav-icon {
-    margin-right: 80px;
-    color: red;
+  margin-right: 80px;
+  color: red;
 }
 
 .info-icon {
-    color: blue;
+  color: blue;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .Link {
-    font-family: 'Press Start 2P';
-    width: 120px;
-    height: 40px;
-    border-radius: 20px;
-    box-shadow: 3px 2px 3px 1px #1411d1;
+  font-family: "Press Start 2P";
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 3px 2px 3px 1px #1411d1;
 }
 
 .Link:hover {
-    background-color: black;
-    color: aliceblue;
+  background-color: black;
+  color: aliceblue;
 }

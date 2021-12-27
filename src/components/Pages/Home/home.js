@@ -9,7 +9,6 @@ import "./home.css";
 import Manifest from "../Manifest/manifest";
 
 function Home({ photos }) {
-
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(24);
 
