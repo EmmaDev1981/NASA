@@ -16,7 +16,7 @@ export function getPhotosFromApi() {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1200&api_key=${process.env.REACT_APP_API_KEY}`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1200&api_key=${process.env.REACT_APP_API}`
       )
       .then((response) => {
         let { photos } = response.data;
@@ -37,7 +37,7 @@ export function getPhotosByModel(model) {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/${model}/photos?sol=2000&api_key=${process.env.REACT_APP_API_KEY}`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/${model}/photos?sol=2000&api_key=${process.env.REACT_APP_API}`
       )
       .then((response) => {
         let { photos } = response.data;
@@ -58,7 +58,7 @@ export function getManifestByModel(model) {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/manifests/${model}/?api_key=${process.env.REACT_APP_API_KEY}`
+        `https://api.nasa.gov/mars-photos/api/v1/manifests/${model}/?api_key=${process.env.REACT_APP_API}`
       )
       .then((response) => {
         dispatch({
@@ -80,7 +80,7 @@ export function getPhotosBySearch(data) {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=${process.env.REACT_APP_API_KEY}`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=${process.env.REACT_APP_API}`
         )
       .then((response) => {
         let { photos } = response.data;
