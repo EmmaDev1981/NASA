@@ -12,7 +12,8 @@
     align-items: center;
     padding: 10px;
     margin: 20px;
-    width: 300px;
+    width: 400px;
+    max-width: 100%;
     font-family: 'Press Start 2P';
     font-weight: 400;
     font-size: large;
@@ -22,7 +23,8 @@
 .selectCont-search {
     padding: 10px;
     margin: 20px;
-    width: 500px;
+    width: 700px;
+    max-width: 100%;
     font-family: 'Press Start 2P';
     font-weight: 400;
     font-size: large;
@@ -48,6 +50,7 @@
     font-weight: 400;
     font-size: large;
     border-radius: 2px;
+    border: 2px solid rgb(255, 145, 0)
 }
 
 .optionGroup {
@@ -57,21 +60,22 @@
 
 .button-submit {
     appearance: none;
-    background-color: #abb2b4;
+    background-color: #49cf20;
     border: 1px solid #1b1f2326;
-    border-radius: 6px;
+    border-radius: 5px;
     box-shadow: #1b1f231a 0 1px 0;
     box-sizing: border-box;
     color: #0e0c0c;
     cursor: pointer;
     font-family: 'Press Start 2P';
-    font-weight: 400;
+    font-weight: 500;
     font-size: large;
     line-height: 20px;
     padding: 10px;
     margin: 20px;
     margin-left: 20px;
     height: 40px;
+    width: 120px;
 }
 
 .button-submit:hover {

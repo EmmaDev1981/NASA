@@ -8,14 +8,14 @@ function About() {
       <>
         <Navigation />
         <div className="home-sub-title">
-        <h2>About</h2>
-      </div>
+          <h2>About</h2>
+        </div>
         <div className="container-about">
           <h1>NASA API - Mars Rover Photos</h1>
           <div className="div-foto">
             <img src={imagen} alt="foto"></img>
           </div>
-          <div className='description-about'>
+          <div className="description-about">
             <p>
               Part of NASA's Mars Science Laboratory mission, Curiosity is the
               largest and most capable rover ever sent to Mars. It launched Nov.

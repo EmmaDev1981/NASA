@@ -4,7 +4,7 @@ import "./manifest.css";
 
 function Manifest({ manifest }) {
   return (
-    <>
+    <div className="wrapper-title-div">
       <div className="title-div">
         <h1>{manifest && manifest?.photo_manifest.name}</h1>
       </div>
@@ -20,7 +20,7 @@ function Manifest({ manifest }) {
           Total Photos: {manifest && manifest?.photo_manifest.total_photos}
         </h3>
       </div>
-    </>
+    </div>
   );
 }
 

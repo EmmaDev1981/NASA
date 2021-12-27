@@ -45,8 +45,9 @@ function Filter({
     dates = `sol=${martianDate}`;
   }
 
+  var id = Date.now().toString()
   const data = {
-    id: Date.now(),
+    id: id.slice(9,13),
     date: dates,
     camera: cameraRover || "fhaz",
     rover: modelRover || "curiosity",
@@ -164,22 +165,6 @@ function Filter({
             </option>
           ))}
       </select>
-      <div>
-        <DatePicker
-          className="date-picker"
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          disabled={selectedValue === "b" ? true : false}
-        />
-      <p className="date-type">EARTH DATE </p>
-      </div>
-      <Radio
-        checked={selectedValue === "a"}
-        onChange={handleChange}
-        value="a"
-        name="radio-buttons"
-        inputProps={{ "aria-label": "A" }}
-      />
       <Radio
         checked={selectedValue === "b"}
         onChange={handleChange}
@@ -205,6 +190,25 @@ function Filter({
           focused
         />
       </Box>
+      <p className="date-type">EARTH DATE </p>
+      <Radio
+        checked={selectedValue === "a"}
+        onChange={handleChange}
+        value="a"
+        name="radio-buttons"
+        inputProps={{ "aria-label": "A" }}
+      />
+      <div>
+        <DatePicker
+          className="date-picker"
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          disabled={selectedValue === "b" ? true : false}
+        />
+      </div>
+      <button className="button-submit" onClick={handleSubmit}>
+        SEARCH
+      </button>
       <select
         className="selectCont-search"
         onChange={handleSubmitSearcedFav}
@@ -217,13 +221,10 @@ function Filter({
         {searchedFavorites.length > 0 &&
           searchedFavorites.map((g) => (
             <option key={g.id} value={g.id}>
-              {`Model: ${g.rover && g.rover.toUpperCase()} <> Date: ${g.date && g.date} <> Camera: ${g.camera && g.camera.toUpperCase()} `}
+              {`Search ID: ${g.id && g.id} <> Model: ${g.rover && g.rover.toUpperCase()} <> Date: ${g.date && g.date} <> Camera: ${g.camera && g.camera.toUpperCase()} `}
             </option>
           ))}
       </select>
-      <button className="button-submit" onClick={handleSubmit}>
-        SEARCH
-      </button>
     </div>
   );
 }

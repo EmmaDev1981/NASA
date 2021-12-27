@@ -5,6 +5,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: auto;
+    height: auto;
+}
+
+.div-foto img{
+    width: 100%;
+    height: 100%;
 }
 
 .container-about h1 {
@@ -13,10 +20,12 @@
 
 .description-about {
     width: 700px;
+    max-width: 100%;
     text-align: justify;
-  text-justify: inter-word;
+    text-justify: inter-word;
 }
 
 .description-about p {
     font-size: large;
+    font-family: 'Press Start 2P';
 }
