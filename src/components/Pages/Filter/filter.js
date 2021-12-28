@@ -4,8 +4,10 @@ import {
   getPhotosByModel,
   getManifestByModel,
   getPhotosBySearch,
-  addSearchParamFavorites
+  addSearchParamFavorites,
+  deleteSearchParamFavorites
 } from "../../Store/actions";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./filter.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -20,6 +22,8 @@ import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import { Modal, Button } from 'react-bootstrap'
+
 
 function Filter({
   getPhotosByModel,
@@ -27,13 +31,16 @@ function Filter({
   manifest,
   getPhotosBySearch,
   addSearchParamFavorites,
-  searchedFavorites
+  searchedFavorites,
+  deleteSearchParamFavorites
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [modelRover, setModelRover] = useState("");
   const [cameraRover, setCameraRover] = useState("");
   const [selectedValue, setSelectedValue] = useState("b");
   const [martianDate, setMartianDate] = useState(1000);
+  const [show, setShow] = useState(false);
+  const [itemSelected, setItemSelected] = useState('')
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -114,10 +121,33 @@ function Filter({
 
   const handleSubmitSearcedFav = (e) => {
     e.preventDefault()
-    if(e.target.value === 'default') return
-    let search = searchedFavorites.filter((fav) => fav.id == e.target.value)
+    setItemSelected(e.target.value)
+    setShow(true)
+  };
+
+  //modal handlers
+
+  const handleClose = () => {
+    setShow(false)
+  };
+
+  const handleSearch = () => {
+    setShow(false)
+    if(itemSelected === 'default') return
+    let search = searchedFavorites.filter((fav) => fav.id == itemSelected)
     getPhotosBySearch(search[0]);
     handleClickVariantSearhFav()
+  };
+
+  const handleRemoveRedords = () => {
+    console.log(itemSelected)
+    if(itemSelected === 'default') {
+      setShow(false)
+      return
+    } 
+    deleteSearchParamFavorites(itemSelected)
+    setShow(false)
+    handleClickRemoveItemFromSearch()
   };
 
   const { enqueueSnackbar } = useSnackbar();
@@ -146,6 +176,20 @@ function Filter({
         },
         TransitionComponent: Slide,
         variant: "success",
+      }
+    );
+  };
+
+  const handleClickRemoveItemFromSearch = () => {
+    enqueueSnackbar(
+      `SAVED SEARCH PARAMETER DELETED`,
+      {
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "left",
+        },
+        TransitionComponent: Slide,
+        variant: "warning",
       }
     );
   };
@@ -297,6 +341,27 @@ function Filter({
       >
         <Typography sx={{ p: 1 }}>{`Select a MARTIAN SOL DATE between: ${0} and ${manifest && manifest.photo_manifest.max_sol}`}</Typography>
       </Popover>
+      <div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Saved Search Parameters</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Please select:</Modal.Body>
+        <Modal.Body> - <strong>Remove: </strong> Selected record will be deleted definitly</Modal.Body>
+        <Modal.Body> - <strong>Search: </strong> Using the saved parameters</Modal.Body>
+        <Modal.Footer>
+          <Button variant="warning" onClick={handleRemoveRedords}>
+            Remove
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSearch}>
+            Search
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
     </div>
   );
 }
@@ -313,5 +378,6 @@ export default connect(mapStateToProps, {
   getPhotosByModel,
   getManifestByModel,
   getPhotosBySearch,
-  addSearchParamFavorites
+  addSearchParamFavorites,
+  deleteSearchParamFavorites
 })(Filter);

@@ -31,7 +31,7 @@ function Home({ photos }) {
   };
 
   return (
-    <div className="container">
+    <div>
       <Navigation />
       <div className="home-sub-title">
         <h2>Home</h2>
@@ -39,7 +39,6 @@ function Home({ photos }) {
       <Filter />
       <Manifest />
       <div className="games-div">
-        <h3></h3>
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
             <Card

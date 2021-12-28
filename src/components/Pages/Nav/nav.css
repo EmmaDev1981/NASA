@@ -1,11 +1,11 @@
-.navbar-div {
+.navbar-app-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: grey;
 }
 
-.navbar-div button{
+.navbar-app-div button{
     font-family: 'Press Start 2P';
     padding: 10px;
     margin: 20px;

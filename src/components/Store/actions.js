@@ -8,7 +8,8 @@ import {
   DELETE_FROM_FAVORITES,
   GET_PHOTO_DETAILS,
   GET_PHOTO_DETAILS_FAVORITES,
-  ADD_SEARCH_PARAMS_FAVORITES
+  ADD_SEARCH_PARAMS_FAVORITES,
+  DELETE_SEARCH_PARAMS_FAVORITES
 } from "./constants";
 
 //get photos by default from API
@@ -124,9 +125,16 @@ export function getPhotoDetails(id) {
     };
   }
 
-  // Details from Favorites by :id
+  // Add searched parameters
   export function addSearchParamFavorites(data) {
     return function (dispatch) {
       dispatch({ type: ADD_SEARCH_PARAMS_FAVORITES, payload: data });
+    };
+  }
+
+   // Delete searched parameters by :id
+   export function deleteSearchParamFavorites(id) {
+    return function (dispatch) {
+      dispatch({ type: DELETE_SEARCH_PARAMS_FAVORITES, payload: id });
     };
   }

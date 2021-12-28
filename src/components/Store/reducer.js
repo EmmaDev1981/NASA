@@ -7,7 +7,8 @@ import {
   DELETE_FROM_FAVORITES,
   GET_PHOTO_DETAILS,
   GET_PHOTO_DETAILS_FAVORITES,
-  ADD_SEARCH_PARAMS_FAVORITES
+  ADD_SEARCH_PARAMS_FAVORITES,
+  DELETE_SEARCH_PARAMS_FAVORITES
 } from "./constants";
 
 const initialState = {
@@ -39,6 +40,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         searchFavorites: state.searchFavorites.concat(action.payload),
+      };
+
+    case DELETE_SEARCH_PARAMS_FAVORITES:
+      return {
+        ...state,
+        searchFavorites: state.searchFavorites.filter((p) => p.id !== action.payload),
       };
 
     case GET_PHOTOS_FROM_NASA:

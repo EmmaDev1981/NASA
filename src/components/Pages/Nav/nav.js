@@ -11,7 +11,7 @@ function NavBar({favorites}) {
   }
 
   return (
-    <div className="navbar-div">
+    <div className="navbar-app-div">
       <NavLink to="/">
         <button>MAIN</button>
       </NavLink>
