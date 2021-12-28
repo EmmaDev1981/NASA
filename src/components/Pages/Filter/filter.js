@@ -18,6 +18,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
 function Filter({
   getPhotosByModel,
@@ -30,12 +32,38 @@ function Filter({
   const [startDate, setStartDate] = useState(new Date());
   const [modelRover, setModelRover] = useState("");
   const [cameraRover, setCameraRover] = useState("");
-  const [selectedValue, setSelectedValue] = useState("a");
+  const [selectedValue, setSelectedValue] = useState("b");
   const [martianDate, setMartianDate] = useState(1000);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+
+  //popover 1
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  
+  //popover 2
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
+
+  const handlePopoverOpen1 = (event) => {
+    setAnchorEl1(event.currentTarget);
+  };
+
+  const handlePopoverClose1 = () => {
+    setAnchorEl1(null);
+  };
+
+  const open1 = Boolean(anchorEl1);
 
   var dates = `sol=1000`;
   if (selectedValue === "a") {
@@ -171,6 +199,8 @@ function Filter({
         value="b"
         name="radio-buttons"
         inputProps={{ "aria-label": "B" }}
+        onMouseEnter={handlePopoverOpen1}
+        onMouseLeave={handlePopoverClose1}
       />
       <p className="date-type">MARTIAN SOL DATE</p>
       <Box
@@ -197,6 +227,8 @@ function Filter({
         value="a"
         name="radio-buttons"
         inputProps={{ "aria-label": "A" }}
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
       />
       <div>
         <DatePicker
@@ -225,6 +257,46 @@ function Filter({
             </option>
           ))}
       </select>
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>{`Select an EARTH DATE between: ${manifest && manifest.photo_manifest.landing_date} and ${manifest && manifest.photo_manifest.max_date}`}</Typography>
+      </Popover>
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open1}
+        anchorEl={anchorEl1}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose1}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>{`Select a MARTIAN SOL DATE between: ${0} and ${manifest && manifest.photo_manifest.max_sol}`}</Typography>
+      </Popover>
     </div>
   );
 }

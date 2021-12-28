@@ -46,6 +46,32 @@ function Card(props) {
     setAnchorEl(null);
   };
 
+  //popover 1
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+
+  const handlePopoverOpen2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
+  const handlePopoverClose2 = () => {
+    setAnchorEl2(null);
+  };
+
+  const open2 = Boolean(anchorEl2);
+
+  //popover 2
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
+
+  const handlePopoverOpen1 = (event) => {
+    setAnchorEl1(event.currentTarget);
+  };
+
+  const handlePopoverClose1 = () => {
+    setAnchorEl1(null);
+  };
+
+  const open1 = Boolean(anchorEl1);
+
   const handleAddToFavorites = () => {
     const alreadyAdded = props.favorites.some((p) => p.id === props.id);
     if (alreadyAdded) {
@@ -80,10 +106,20 @@ function Card(props) {
       </div>
 
       <div className="favorite-icon">
-        <FavoriteIcon className="fav-icon" onClick={handleAddToFavorites} />
+        <FavoriteIcon
+          className="fav-icon"
+          onClick={handleAddToFavorites}
+          onMouseEnter={handlePopoverOpen2}
+          onMouseLeave={handlePopoverClose2}
+        />
         {props.id && (
           <Link to={`/details`}>
-            <InfoIcon className="info-icon" onClick={handleInfoDetails} />
+            <InfoIcon
+              className="info-icon"
+              onClick={handleInfoDetails}
+              onMouseEnter={handlePopoverOpen1}
+              onMouseLeave={handlePopoverClose1}
+            />
           </Link>
         )}
       </div>
@@ -103,6 +139,46 @@ function Card(props) {
       >
         <Typography sx={{ p: 1 }}>{props.name}</Typography>
         <Typography sx={{ p: 1 }}>{props.camera}</Typography>
+      </Popover>
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: "none",
+        }}
+        open={open2}
+        anchorEl={anchorEl2}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        onClose={handlePopoverClose2}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>Add to Favorites</Typography>
+      </Popover>
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: "none",
+        }}
+        open={open1}
+        anchorEl={anchorEl1}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        onClose={handlePopoverClose1}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>Details</Typography>
       </Popover>
     </div>
   );
