@@ -51,7 +51,7 @@ function CardApod(props) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <img src={`${props.image}`} alt="nophoto" className="Img"></img>
+            <img src={`${props.image}`} alt="--- No photo Founded ---" className="Img"></img>
           </Typography>
         ) : (
           <img src={noimage} alt="notFound" className="Img"></img>

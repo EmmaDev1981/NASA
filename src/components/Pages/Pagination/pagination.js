@@ -12,8 +12,8 @@ export default function Paginate({
 
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
-    paginate(page)
-    setPage(value);
+    paginate(value)
+    setPage(value)
   };
 
   if (Math.ceil(totalCards / cardPerPage) < currentPage) {

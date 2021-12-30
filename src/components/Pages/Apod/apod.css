@@ -2,5 +2,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.input-box-photos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 40px;
+}
+
+.div-title-qty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }

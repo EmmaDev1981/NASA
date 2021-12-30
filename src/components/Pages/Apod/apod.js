@@ -6,11 +6,14 @@ import Pagination from '../Pagination/pagination'
 import CardApod from '../CardApod/cardapod'
 import { Button } from 'react-bootstrap'
 import './apod.css'
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 function Apod({getPhotosFromApod, apodPhotos}) {
 
+  // const [apodPhotosQty, setApodPhotosQty] = useState(4);
 
-    const [data, setData] = React.useState(
+    const [data, setData] = useState(
       { 
         date: "", 
         count: 4, 
@@ -37,17 +40,54 @@ function Apod({getPhotosFromApod, apodPhotos}) {
       const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
       };
+
+      const handleApodPhotos = (e) => {
+        e.preventDefault()
+        setData({ 
+          date: "", 
+          count: e.target.value, 
+          startDate: "", 
+          endDate: ""
+      });
+      };
     return (
       <div>
         <Navbar />
         <div className="home-sub-title">
           <h2>Astronomy Picture of the Day</h2>
         </div>
+        <div className='input-box-photos'>
+        <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 2, width: "15ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          label="Photos QTY"
+          onChange={handleApodPhotos}
+          variant="standard"
+          color="warning"
+          focused
+        />
+      </Box>
+        </div>
+        <div className='div-title-qty'>
+        <p>INSERT A NUMBER BETWEEN 1 & 100</p>
+        </div>
         <div className='boton-apod-search'>
         <Button variant="primary" onClick={handleSearch}>
             ALEATORY PHOTOS
           </Button>
         </div>
+      <Pagination
+        cardPerPage={cardPerPage}
+        totalCards={apodPhotos.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
         <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
@@ -71,12 +111,6 @@ function Apod({getPhotosFromApod, apodPhotos}) {
           </div>
         )}
       </div>
-      <Pagination
-        cardPerPage={cardPerPage}
-        totalCards={apodPhotos.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
       </div>
     );
 }
