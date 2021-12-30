@@ -4,7 +4,7 @@
     justify-content: center;
 }
 
-ul {
+/* ul {
     display: flex;
     flex-direction: row;
 }
@@ -28,4 +28,4 @@ li {
 .pag-btn:hover {
     background-color: black;
     color:rgb(241, 239, 238)
-}
+} */

@@ -140,7 +140,6 @@ function Filter({
   };
 
   const handleRemoveRedords = () => {
-    console.log(itemSelected)
     if(itemSelected === 'default') {
       setShow(false)
       return

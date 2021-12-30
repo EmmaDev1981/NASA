@@ -1,4 +1,4 @@
-.container-photos {
+.container-apod-photos {
     flex-wrap: wrap;
     border-radius: 50px 50px 50px 50px;
     border: 1px solid black;
@@ -16,15 +16,15 @@
     border-radius: 50px 50px 0px 0px;
     margin: 0px;
     overflow: hidden;
-    width: 600px;
-    height: 600px;
+    width: 350px;
+    height: 350px;
     
 }
 
-.photos-div img {
+.photos-apod-div img {
     display: block;
     object-fit:fill;
-    /* width: 100%; */
+    width: 100%;
     min-height: 100%;
 }
 

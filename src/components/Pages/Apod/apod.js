@@ -9,17 +9,20 @@ import './apod.css'
 
 function Apod({getPhotosFromApod, apodPhotos}) {
 
-    const data = { 
+
+    const [data, setData] = React.useState(
+      { 
         date: "", 
         count: 4, 
         startDate: "", 
         endDate: ""
     }
+    )
 
     const handleSearch = () => {
         getPhotosFromApod(data)
     }
-    
+
       const [currentPage, setCurrentPage] = useState(1);
       const [cardPerPage] = useState(24);
     

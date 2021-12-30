@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import Navigation from "../Nav/nav";
-import Pagination from "../Pagination/pagination";
+import Paginate from "../Pagination/pagination";
 import Card from "../Card/card";
 import Filter from "../Filter/filter";
 import { connect } from "react-redux";
@@ -38,6 +38,12 @@ function Home({ photos }) {
       </div>
       <Filter />
       <Manifest />
+      <Paginate
+        cardPerPage={cardPerPage}
+        totalCards={photos.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
@@ -60,12 +66,6 @@ function Home({ photos }) {
           </div>
         )}
       </div>
-      <Pagination
-        cardPerPage={cardPerPage}
-        totalCards={photos.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
     </div>
   );
 }

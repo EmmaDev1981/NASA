@@ -1,12 +1,21 @@
 import React from "react";
 import "./pagination.css";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
-export default function Pagination({
+export default function Paginate({
   cardPerPage,
   totalCards,
   paginate,
   currentPage,
 }) {
+
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    paginate(page)
+    setPage(value);
+  };
+
   if (Math.ceil(totalCards / cardPerPage) < currentPage) {
     paginate(1);
   }
@@ -18,24 +27,9 @@ export default function Pagination({
 
   return (
     <div className="pag-div">
-      <ul>
-        {pageNumbers.length > 1 &&
-          pageNumbers.map((p, i) =>
-            p === currentPage ? (
-              <li key={i}>
-                <button className="pag-btn" onClick={() => paginate(p)}>
-                  {p}
-                </button>
-              </li>
-            ) : (
-              <li key={i}>
-                <button className="pag-btn" onClick={() => paginate(p)}>
-                  {p}
-                </button>
-              </li>
-            )
-          )}
-      </ul>
+     <Stack spacing={2}>
+      <Pagination count={pageNumbers.length} page={page} onChange={handleChange} />
+    </Stack>
     </div>
   );
 }

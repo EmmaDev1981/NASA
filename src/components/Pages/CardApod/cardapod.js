@@ -42,7 +42,7 @@ function CardApod(props) {
   const open1 = Boolean(anchorEl1);
 
   return (
-    <div className="container-photos">
+    <div className="container-apod-photos">
       <div className="photos-apod-div">
         {props.image ? (
           <Typography
