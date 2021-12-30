@@ -7,7 +7,7 @@
 - [ ] Bootstrap
 - [ ] HTML / CSS
 
-Deploy: https://nasa-8zjp59cy6-emmadev1981.vercel.app/
+Deploy: https://nasa-liart.vercel.app/
 
 ### Objective
 
