@@ -13,13 +13,16 @@ function NavBar({favorites}) {
   return (
     <div className="navbar-app-div">
       <NavLink to="/">
-        <button>MAIN</button>
+        <button>INTRO</button>
       </NavLink>
       <NavLink to="/home">
-        <button>HOME</button>
+        <button>ROVERS</button>
       </NavLink>
       <NavLink to="/favorites">
         <button>{`FAVORITES(${favItems})`}</button>
+      </NavLink>
+      <NavLink to="/apod">
+        <button>APOD</button>
       </NavLink>
       <NavLink to="/about">
         <button>ABOUT</button>

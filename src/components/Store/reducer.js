@@ -8,7 +8,8 @@ import {
   GET_PHOTO_DETAILS,
   GET_PHOTO_DETAILS_FAVORITES,
   ADD_SEARCH_PARAMS_FAVORITES,
-  DELETE_SEARCH_PARAMS_FAVORITES
+  DELETE_SEARCH_PARAMS_FAVORITES,
+  GET_PHOTOS_FROM_APOD
 } from "./constants";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   manifest: {},
   favorites: [],
   photoDetails: null,
-  searchFavorites: []
+  searchFavorites: [],
+  apodPhotos: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -52,6 +54,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         photos: action.payload,
+      };
+
+    case GET_PHOTOS_FROM_APOD:
+      return {
+        ...state,
+        apodPhotos: action.payload,
       };
 
     case GET_PHOTOS_BY_SEARCH:

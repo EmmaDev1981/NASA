@@ -9,7 +9,8 @@ import {
   GET_PHOTO_DETAILS,
   GET_PHOTO_DETAILS_FAVORITES,
   ADD_SEARCH_PARAMS_FAVORITES,
-  DELETE_SEARCH_PARAMS_FAVORITES
+  DELETE_SEARCH_PARAMS_FAVORITES,
+  GET_PHOTOS_FROM_APOD
 } from "./constants";
 
 //get photos by default from API
@@ -138,3 +139,24 @@ export function getPhotoDetails(id) {
       dispatch({ type: DELETE_SEARCH_PARAMS_FAVORITES, payload: id });
     };
   }
+
+//APOD
+export function getPhotosFromApod(data) {
+  const { date, count, startDate, endDate } = data;
+  return async function (dispatch) {
+    return await axios
+      .get(
+        `https://api.nasa.gov/planetary/apod?&date=${date}&count=${count}&start_date=${startDate}&end_date=${endDate}&api_key=${process.env.REACT_APP_API}`
+      )
+      .then((response) => {
+          dispatch({
+          type: GET_PHOTOS_FROM_APOD,
+          payload: response.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        return err;
+      });
+  };
+}

@@ -34,7 +34,7 @@ function Home({ photos }) {
     <div>
       <Navigation />
       <div className="home-sub-title">
-        <h2>Home</h2>
+        <h2>Mars Rover Photo Missions</h2>
       </div>
       <Filter />
       <Manifest />
