@@ -15,6 +15,13 @@ import InfoIcon from "@mui/icons-material/Info";
 import noimage from "../../assets/noimage.jpg";
 
 function CardFav(props) {
+
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
+
+  React.useEffect(()=>{
+    setScreenWidth(window.innerWidth)
+  }, [])
+
   const { enqueueSnackbar } = useSnackbar();
 
   const handleClickVariantDelete = () => {
@@ -31,6 +38,7 @@ function CardFav(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handlePopoverOpen = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl(event.currentTarget);
   };
 
@@ -53,6 +61,7 @@ function CardFav(props) {
   const [anchorEl2, setAnchorEl2] = React.useState(null);
 
   const handlePopoverOpen2 = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl2(event.currentTarget);
   };
 
@@ -66,6 +75,7 @@ function CardFav(props) {
   const [anchorEl1, setAnchorEl1] = React.useState(null);
 
   const handlePopoverOpen1 = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl1(event.currentTarget);
   };
 
@@ -85,10 +95,10 @@ function CardFav(props) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <img src={`${props.image}`} alt="photo" className="Img"></img>
+            <img src={`${props.image}`} alt="nophoto" className="Img"></img>
           </Typography>
         ) : (
-          <img src={noimage} alt="noImage" className="Img"></img>
+          <img src={noimage} alt="sin" className="Img"/>
         )}
       </div>
 

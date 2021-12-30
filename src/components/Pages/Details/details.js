@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import "./details.css";
 
 function Details({ photoDetails }) {
+
   return (
     <div>
       <NavBar />
@@ -18,7 +19,7 @@ function Details({ photoDetails }) {
               <h3>Photo ID: {photoDetails[0].id}</h3>
             </div>
             <div className="info-photo">
-              <img src={photoDetails[0].img_src} alt="photo" />
+              <img src={photoDetails[0].img_src} alt="sin" />
             </div>
             <div className="info-details">
               <p>

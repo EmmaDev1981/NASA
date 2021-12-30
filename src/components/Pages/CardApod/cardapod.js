@@ -3,64 +3,35 @@ import "./cardapod.css";
 import noimage from "../../assets/noimage.jpg";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import InfoIcon from "@mui/icons-material/Info";
-import { addToFavorites, getPhotoDetails } from "../../Store/actions";
+import HdIcon from '@mui/icons-material/Hd';
 import { connect } from "react-redux";
-import { useSnackbar } from "notistack";
-import Slide from "@material-ui/core/Slide";
 
 function CardApod(props) {
-  const { enqueueSnackbar } = useSnackbar();
 
-  const handleClickVariantOk = () => {
-    enqueueSnackbar("ADDED CORRECTLY TO FAVORITES", {
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "left",
-      },
-      TransitionComponent: Slide,
-      variant: "success",
-    });
-  };
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
 
-  const handleClickVariantAlreadyAdded = () => {
-    enqueueSnackbar("PHOTO ALREADY ADDED", {
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "left",
-      },
-      TransitionComponent: Slide,
-      variant: "info",
-    });
-  };
+  React.useEffect(()=>{
+    setScreenWidth(window.innerWidth)
+  }, [])
 
+  //popover 1
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handlePopoverOpen = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
-  //popover 1
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
-
-  const handlePopoverOpen2 = (event) => {
-    setAnchorEl2(event.currentTarget);
-  };
-
-  const handlePopoverClose2 = () => {
-    setAnchorEl2(null);
-  };
-
-  const open2 = Boolean(anchorEl2);
+  const open = Boolean(anchorEl);
 
   //popover 2
   const [anchorEl1, setAnchorEl1] = React.useState(null);
 
   const handlePopoverOpen1 = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl1(event.currentTarget);
   };
 
@@ -70,25 +41,9 @@ function CardApod(props) {
 
   const open1 = Boolean(anchorEl1);
 
-  const handleAddToFavorites = () => {
-    const alreadyAdded = props.favorites.some((p) => p.id === props.id);
-    if (alreadyAdded) {
-      handleClickVariantAlreadyAdded();
-    } else {
-      props.addToFavorites(props.id);
-      handleClickVariantOk();
-    }
-  };
-
-  const handleInfoDetails = () => {
-    props.getPhotoDetails(props.id);
-  };
-
-  const open = Boolean(anchorEl);
-
   return (
     <div className="container-photos">
-      <div className="photos-div">
+      <div className="photos-apod-div">
         {props.image ? (
           <Typography
             aria-owns={open ? "mouse-over-popover" : undefined}
@@ -96,7 +51,7 @@ function CardApod(props) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <img src={`${props.image}`} alt="photo" className="Img"></img>
+            <img src={`${props.image}`} alt="nophoto" className="Img"></img>
           </Typography>
         ) : (
           <img src={noimage} alt="notFound" className="Img"></img>
@@ -105,8 +60,8 @@ function CardApod(props) {
 
       <div className="favorite-icon">
         {props.id && (
-          <a href={props.hdurl} target="_blank">
-            <InfoIcon
+          <a href={props.hdurl} target="_blank" rel="noreferrer">
+            <HdIcon
               className="info-icon"
               onMouseEnter={handlePopoverOpen1}
               onMouseLeave={handlePopoverClose1}
@@ -156,12 +111,7 @@ function CardApod(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    favorites: state.favorites,
-  };
-}
 
-export default connect(mapStateToProps, { addToFavorites, getPhotoDetails })(
+export default connect()(
  CardApod
 );

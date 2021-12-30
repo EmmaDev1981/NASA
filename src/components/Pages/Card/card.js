@@ -12,6 +12,13 @@ import Slide from "@material-ui/core/Slide";
 import { Link } from "react-router-dom";
 
 function Card(props) {
+
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
+
+  React.useEffect(()=>{
+    setScreenWidth(window.innerWidth)
+  }, [])
+
   const { enqueueSnackbar } = useSnackbar();
 
   const handleClickVariantOk = () => {
@@ -39,6 +46,7 @@ function Card(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handlePopoverOpen = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl(event.currentTarget);
   };
 
@@ -50,6 +58,7 @@ function Card(props) {
   const [anchorEl2, setAnchorEl2] = React.useState(null);
 
   const handlePopoverOpen2 = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl2(event.currentTarget);
   };
 
@@ -63,6 +72,7 @@ function Card(props) {
   const [anchorEl1, setAnchorEl1] = React.useState(null);
 
   const handlePopoverOpen1 = (event) => {
+    if(screeWidth < 800) return
     setAnchorEl1(event.currentTarget);
   };
 
@@ -98,7 +108,7 @@ function Card(props) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <img src={`${props.image}`} alt="photo" className="Img"></img>
+            <img src={`${props.image}`} alt="nophoto" className="Img"></img>
           </Typography>
         ) : (
           <img src={noimage} alt="notFound" className="Img"></img>
