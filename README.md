@@ -27,17 +27,17 @@ The main reason of this App, its allow users to download photos from NASA API fr
 ### HOME:
 
 <p>
-  <img height="400" src="./public/home.jpg" />
+  <img height="330" src="./public/home.jpg" />
 </p>
 
 ### PHOTOS:
 
 <p>
-  <img height="400" src="./public/photos.jpg" />
+  <img height="320" src="./public/photos.jpg" />
 </p>
 
 ### APOD:
 
 <p>
-  <img height="400" src="./public/apod.jpg" />
+  <img height="340" src="./public/apod.jpg" />
 </p>
