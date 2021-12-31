@@ -10,8 +10,26 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Footer from '../Footer/footer'
 import LazyLoad from 'react-lazyload'
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 
 function Apod({getPhotosFromApod, apodPhotos}) {
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickLoading = () => {
+    enqueueSnackbar(
+      `LOADING.....PLEASE WAIT`,
+      {
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "left",
+        },
+        TransitionComponent: Slide,
+        variant: "success",
+      }
+    );
+  }
 
     const [data, setData] = useState(
       { 
@@ -23,6 +41,7 @@ function Apod({getPhotosFromApod, apodPhotos}) {
     )
 
     const handleSearch = () => {
+        handleClickLoading()
         getPhotosFromApod(data)
     }
 
@@ -92,8 +111,9 @@ function Apod({getPhotosFromApod, apodPhotos}) {
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
             <LazyLoad
+              key={g.date}
               height={200}
-              offset={100}
+              offset={-200}
             >
             <CardApod
               key={g.date}

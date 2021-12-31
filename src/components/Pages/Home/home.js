@@ -50,8 +50,9 @@ function Home({ photos }) {
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
             <Lazyload
+            key={g.id}
             height={200}
-            offset={100}
+            offset={-100}
             >
             <Card
               key={g.id}
