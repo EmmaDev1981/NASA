@@ -20,15 +20,13 @@
     border-radius: 2px;
 }
 
-.selectCont-search {
+.form-select {
     padding: 10px;
     margin: 20px;
     width: 700px;
     max-width: 100%;
-    font-family: 'Press Start 2P';
-    font-weight: 400;
-    font-size: large;
-    border-radius: 2px;
+    font-size: larger;
+    border-radius: 5px;
 }
 
 .date-type {
@@ -58,27 +56,6 @@
     font-family: 'Press Start 2P';
 }
 
-.button-submit {
-    appearance: none;
-    background-color: #49cf20;
-    border: 1px solid #1b1f2326;
-    border-radius: 5px;
-    box-shadow: #1b1f231a 0 1px 0;
-    box-sizing: border-box;
-    color: #0e0c0c;
-    cursor: pointer;
-    font-family: 'Press Start 2P';
-    font-weight: 500;
-    font-size: large;
-    line-height: 20px;
-    padding: 10px;
-    margin: 20px;
-    margin-left: 20px;
-    height: 40px;
-    width: 120px;
-}
-
-.button-submit:hover {
-    color: white ;
-    background-color: #0e0c0c;
+.button-search {
+    margin: 30px;
 }

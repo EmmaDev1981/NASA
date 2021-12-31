@@ -221,7 +221,7 @@ function Filter({
         </RadioGroup>
       </FormControl>
       <select
-        className="selectCont"
+        className="form-select"
         onChange={handleSelectCameras}
         name=""
         id=""
@@ -281,11 +281,11 @@ function Filter({
           disabled={selectedValue === "b" ? true : false}
         />
       </div>
-      <button className="button-submit" onClick={handleSubmit}>
+      <Button className="button-search" variant="primary" onClick={handleSubmit}>
         SEARCH
-      </button>
+      </Button>
       <select
-        className="selectCont-search"
+        className="form-select"
         onChange={handleSubmitSearcedFav}
         name=""
         id=""
