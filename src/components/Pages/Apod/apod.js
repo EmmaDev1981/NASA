@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap'
 import './apod.css'
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Footer from '../Footer/footer'
 
 function Apod({getPhotosFromApod, apodPhotos}) {
 
@@ -54,6 +55,9 @@ function Apod({getPhotosFromApod, apodPhotos}) {
         <div className="home-sub-title">
           <h2>Astronomy Picture of the Day</h2>
         </div>
+        <div className='div-title-qty'>
+        <p>INSERT A NUMBER BETWEEN 1 & 100</p>
+        </div>
         <div className='input-box-photos'>
         <Box
         component="form"
@@ -71,9 +75,6 @@ function Apod({getPhotosFromApod, apodPhotos}) {
           focused
         />
       </Box>
-        </div>
-        <div className='div-title-qty'>
-        <p>INSERT A NUMBER BETWEEN 1 & 100</p>
         </div>
         <div className='boton-apod-search'>
         <Button variant="primary" onClick={handleSearch}>
@@ -109,6 +110,7 @@ function Apod({getPhotosFromApod, apodPhotos}) {
           </div>
         )}
       </div>
+      <Footer/>
       </div>
     );
 }

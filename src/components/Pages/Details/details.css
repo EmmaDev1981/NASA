@@ -12,6 +12,7 @@
     justify-content: center;
     border: 2px solid black;
     max-width: 100%;
+    margin-bottom: 30px;
 }
 
 .info-photo img{
@@ -23,6 +24,8 @@
 .info-title-details {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .back-button-details {
@@ -44,7 +47,7 @@
     font-size: large;
     line-height: 20px;
     padding: 10px;
-    margin: 20px;
+    margin-top: 10px;
     margin-left: 20px;
     height: 40px;
 }

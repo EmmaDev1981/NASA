@@ -1,16 +1,14 @@
-.wrapper-info {
-    display: flex;
-    justify-content:space-evenly;
-    font-family: 'Press Start 2P';
-    font-size: large;
-    margin-top: 40px;
-    margin-bottom: 40px;
+.wrapper-title-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title-div {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
 }
 
 @media only screen and (max-width: 1200px) {

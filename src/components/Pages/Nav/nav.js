@@ -18,11 +18,11 @@ function NavBar({favorites}) {
       <NavLink to="/home">
         <button>ROVERS</button>
       </NavLink>
-      <NavLink to="/favorites">
-        <button>{`FAVORITES(${favItems})`}</button>
-      </NavLink>
       <NavLink to="/apod">
         <button>APOD</button>
+      </NavLink>
+      <NavLink to="/favorites">
+        <button>{`FAVORITES(${favItems})`}</button>
       </NavLink>
       <NavLink to="/about">
         <button>ABOUT</button>

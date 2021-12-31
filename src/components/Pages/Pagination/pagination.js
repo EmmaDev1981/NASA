@@ -28,7 +28,7 @@ export default function Paginate({
   return (
     <div className="pag-div">
      <Stack spacing={2}>
-      <Pagination count={pageNumbers.length} page={page} onChange={handleChange} />
+      <Pagination className="paginate-items" count={pageNumbers.length} page={page} onChange={handleChange} />
     </Stack>
     </div>
   );

@@ -3,6 +3,8 @@ import NavBar from "../Nav/nav";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./details.css";
+import Footer from "../Footer/footer";
+import { Table } from 'react-bootstrap'
 
 function Details({ photoDetails }) {
 
@@ -16,29 +18,31 @@ function Details({ photoDetails }) {
         <div className="details-div">
           <div>
             <div className="info-title-details">
-              <h3>Photo ID: {photoDetails[0].id}</h3>
+              <h3>Photo: {photoDetails[0].id}</h3>
             </div>
             <div className="info-photo">
               <img src={photoDetails[0].img_src} alt="sin" />
             </div>
-            <div className="info-details">
-              <p>
-                <strong>Rover: </strong>
-                {photoDetails[0].rover.name}
-              </p>
-              <p>
-                <strong>Photo Sol Date: </strong>
-                {photoDetails[0].sol}
-              </p>
-              <p>
-                <strong>Photo Earth Date: </strong>
-                {photoDetails[0].earth_date}
-              </p>
-              <p>
-                <strong>Camera: </strong>
-                {photoDetails[0].camera.full_name}
-              </p>
-            </div>
+            <Table striped bordered hover className="wrapper-title-div">
+        <tbody>
+          <tr>
+            <td>Rover:</td>
+            <td>{photoDetails[0].rover.name}</td>
+          </tr>
+          <tr>
+            <td>Photo Sol Date:</td>
+            <td> {photoDetails[0].sol}</td>
+          </tr>
+          <tr>
+            <td>Photo Earth Date:</td>
+            <td>{photoDetails[0].earth_date}</td>
+          </tr>
+          <tr>
+            <td>Camera: </td>
+            <td> {photoDetails[0].camera.full_name}</td>
+          </tr>
+        </tbody>
+      </Table>
             <div className="back-button-details">
               <NavLink to="/home">
                 <button>BACK</button>
@@ -49,6 +53,7 @@ function Details({ photoDetails }) {
       ) : (
         <h3>No hay detalles</h3>
       )}
+      <Footer/>
     </div>
   );
 }

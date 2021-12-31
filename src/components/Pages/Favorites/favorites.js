@@ -5,6 +5,7 @@ import CardFav from "../CardFav/cardFav";
 import { connect } from "react-redux";
 import { getPhotosFromApi } from "../../Store/actions";
 import "./favorites.css";
+import Footer from "../Footer/footer";
 
 function Favorites({ photos }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,6 +57,7 @@ function Favorites({ photos }) {
         paginate={paginate}
         currentPage={currentPage}
       />
+      <Footer/>
     </div>
   );
 }

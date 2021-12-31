@@ -195,6 +195,9 @@ function Filter({
 
   return (
     <div className="container-div">
+    <div className="customize-title-search">
+      <h2>Customize your Photo´s search</h2>
+    </div>
       <FormControl component="fieldset">
         <FormLabel component="legend">Rover Model</FormLabel>
         <RadioGroup

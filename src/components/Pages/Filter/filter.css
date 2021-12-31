@@ -6,6 +6,11 @@
     margin-top: 20px;
 }
 
+.customize-title-search {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .selectCont {
     display: flex;
     justify-content: center;
@@ -43,7 +48,7 @@
 .date-picker {
     padding: 10px;
     margin: 20px;
-    width: 105px;
+    width: 110px;
     font-family: 'Press Start 2P';
     font-weight: 400;
     font-size: large;

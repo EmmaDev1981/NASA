@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
 import "./home.css";
 import Manifest from "../Manifest/manifest";
+import Footer from "../Footer/footer";
 
 function Home({ photos }) {
 
@@ -36,8 +37,8 @@ function Home({ photos }) {
       <div className="home-sub-title">
         <h2>Mars Rover Photo Missions</h2>
       </div>
-      <Filter />
       <Manifest />
+      <Filter />
       <Paginate
         cardPerPage={cardPerPage}
         totalCards={photos.length}
@@ -66,6 +67,7 @@ function Home({ photos }) {
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }
