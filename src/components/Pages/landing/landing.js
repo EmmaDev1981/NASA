@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
-import imageLanding from "../../assets/landing.jpg";
+// import imageLanding from "../../assets/landing.jpg";
 import { connect } from "react-redux";
 // import nasaMobile from "../../assets/nasaMobile.jpg";
 import { getPhotosFromApi, getManifestByModel,getPhotosFromApod } from "../../Store/actions";
@@ -27,7 +27,7 @@ function Landing({ getPhotosFromApi, getManifestByModel,getPhotosFromApod }) {
   }, []);
   return (
     <div className="landing-div">
-    <img src={imageLanding} alt="landing" className="theImage"></img>
+    {/* <img src={imageLanding} alt="landing" className="theImage"></img> */}
       {/* {screeWidth > 600 ? (
         <img src={imageLanding} alt="landing" className="theImage"></img>
       ) : (
