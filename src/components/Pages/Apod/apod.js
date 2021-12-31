@@ -11,8 +11,6 @@ import TextField from "@mui/material/TextField";
 
 function Apod({getPhotosFromApod, apodPhotos}) {
 
-  // const [apodPhotosQty, setApodPhotosQty] = useState(4);
-
     const [data, setData] = useState(
       { 
         date: "", 
