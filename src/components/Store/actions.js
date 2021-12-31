@@ -18,7 +18,7 @@ export function getPhotosFromApi() {
   return async function (dispatch) {
     return await axios
       .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1200&api_key=${process.env.REACT_APP_API}`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=900&api_key=${process.env.REACT_APP_API}`
       )
       .then((response) => {
         let { photos } = response.data;

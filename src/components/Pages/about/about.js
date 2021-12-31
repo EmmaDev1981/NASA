@@ -11,7 +11,7 @@ function About() {
           <h2>About</h2>
         </div>
         <div className="container-about">
-          <h1>NASA API - Mars Rover Photos</h1>
+          <h1>NASA API</h1>
           <div className="div-foto">
             <img src={imagen} alt="foto"></img>
           </div>
