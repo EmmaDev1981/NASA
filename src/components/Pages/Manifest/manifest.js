@@ -16,11 +16,12 @@ function Manifest({ manifest }) {
             <td>{manifest && manifest?.photo_manifest.status.toUpperCase()}</td>
           </tr>
           <tr>
-            <td>Landing Date:</td>
+          
+            <td>Landind D:</td>
             <td>{manifest && manifest?.photo_manifest.landing_date}</td>
           </tr>
           <tr>
-            <td>Launch Date:</td>
+            <td>Launch D:</td>
             <td>{manifest && manifest?.photo_manifest.launch_date}</td>
           </tr>
           <tr>
