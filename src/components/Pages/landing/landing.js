@@ -1,18 +1,18 @@
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
-// import imageLanding from "../../assets/landing.jpg";
+import imageLanding from "../../assets/landing.jpg";
 import { connect } from "react-redux";
-// import nasaMobile from "../../assets/nasaMobile.jpg";
+import nasaMobile from "../../assets/nasaMobile.jpg";
 import { getPhotosFromApi, getManifestByModel,getPhotosFromApod } from "../../Store/actions";
 import "./landing.css";
 
 function Landing({ getPhotosFromApi, getManifestByModel,getPhotosFromApod }) {
 
-  // const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
 
-  // React.useEffect(()=>{
-  //   setScreenWidth(window.innerWidth)
-  // }, [])
+  React.useEffect(()=>{
+    setScreenWidth(window.innerWidth)
+  }, [])
 
   const data = { 
     date: "", 
@@ -27,12 +27,11 @@ function Landing({ getPhotosFromApi, getManifestByModel,getPhotosFromApod }) {
   }, []);
   return (
     <div className="landing-div">
-    {/* <img src={imageLanding} alt="landing" className="theImage"></img> */}
-      {/* {screeWidth > 600 ? (
+      {screeWidth > 600 ? (
         <img src={imageLanding} alt="landing" className="theImage"></img>
       ) : (
         <img src={nasaMobile} alt="mobile" className="theImage"></img>
-      )} */}
+      )}
       <Link to="/home">
         <button className="myButton">ENTER</button>
       </Link>
