@@ -72,7 +72,7 @@ function Filter({
 
   const open1 = Boolean(anchorEl1);
 
-  var dates = `sol=1000`;
+  var dates = `sol=${manifest.photo_manifest.max_sol}`;
   if (selectedValue === "a") {
     dates = `earth_date=${startDate.toISOString().split("T")[0]}`;
   }
@@ -99,8 +99,8 @@ function Filter({
   const handleSelectRover = (e) => {
     e.preventDefault()
     setModelRover(e.target.value);
-    getPhotosByModel(e.target.value);
     getManifestByModel(e.target.value);
+    getPhotosByModel(e.target.value);
   };
 
   const handleSelectCameras = (e) => {

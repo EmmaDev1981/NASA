@@ -8,6 +8,7 @@ import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
 import "./home.css";
 import Manifest from "../Manifest/manifest";
 import Footer from "../Footer/footer";
+import Lazyload from "react-lazyload";
 
 function Home({ photos }) {
 
@@ -17,7 +18,7 @@ function Home({ photos }) {
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardPerPage] = useState(24);
+  const [cardPerPage] = useState(25); //max photos x page
 
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
@@ -48,14 +49,20 @@ function Home({ photos }) {
       <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
+            <Lazyload
+            height={200}
+            offset={100}
+            >
             <Card
               key={g.id}
               name={g.rover.name}
               date={g.earth_date}
+              sol={g.sol}
               camera={g.camera.name}
               image={g.img_src}
               id={g.id}
             />
+            </Lazyload>
           ))
         ) : typeof currentCards === "string" ? (
           <div>

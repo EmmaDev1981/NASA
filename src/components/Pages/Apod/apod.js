@@ -9,6 +9,7 @@ import './apod.css'
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Footer from '../Footer/footer'
+import LazyLoad from 'react-lazyload'
 
 function Apod({getPhotosFromApod, apodPhotos}) {
 
@@ -90,6 +91,10 @@ function Apod({getPhotosFromApod, apodPhotos}) {
         <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
+            <LazyLoad
+              height={200}
+              offset={100}
+            >
             <CardApod
               key={g.date}
               title={g.title}
@@ -99,6 +104,7 @@ function Apod({getPhotosFromApod, apodPhotos}) {
               image={g.url}
               id={g.date}
             />
+            </LazyLoad>
           ))
         ) : typeof currentCards === "string" ? (
           <div>

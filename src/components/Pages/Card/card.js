@@ -149,6 +149,8 @@ function Card(props) {
       >
         <Typography sx={{ p: 1 }}>{props.name}</Typography>
         <Typography sx={{ p: 1 }}>{props.camera}</Typography>
+        <Typography sx={{ p: 1 }}>{props.sol}</Typography>
+        <Typography sx={{ p: 1 }}>{props.date}</Typography>
       </Popover>
       <Popover
         id="mouse-over-popover"
