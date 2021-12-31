@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import imageLanding from "../../assets/landing.jpg";
-import nasaMobile from "../../assets/nasaMobile.jpg";
 import { connect } from "react-redux";
+import nasaMobile from "../../assets/nasaMobile.jpg";
 import { getPhotosFromApi, getManifestByModel,getPhotosFromApod } from "../../Store/actions";
 import "./landing.css";
 
