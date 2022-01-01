@@ -1,5 +1,4 @@
 import React from "react";
-import "./card.css";
 import noimage from "../../assets/noimage.jpg";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
@@ -10,17 +9,17 @@ import { connect } from "react-redux";
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 import { Link } from "react-router-dom";
+import "./card.css";
 
 function Card(props) {
+  //UI size adjust
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
 
-  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
-
-  React.useEffect(()=>{
-    setScreenWidth(window.innerWidth)
-  }, [])
-
+  //toast 1 "added correctly to fav"
   const { enqueueSnackbar } = useSnackbar();
-
   const handleClickVariantOk = () => {
     enqueueSnackbar("ADDED CORRECTLY TO FAVORITES", {
       anchorOrigin: {
@@ -32,6 +31,7 @@ function Card(props) {
     });
   };
 
+  //toast 2 "Photo repeted alert"
   const handleClickVariantAlreadyAdded = () => {
     enqueueSnackbar("PHOTO ALREADY ADDED", {
       anchorOrigin: {
@@ -43,45 +43,41 @@ function Card(props) {
     });
   };
 
+  //popover 1
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handlePopoverOpen = (event) => {
-    if(screeWidth < 800) return
+    if (screeWidth < 800) return;
     setAnchorEl(event.currentTarget);
   };
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
 
-  //popover 1
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const open = Boolean(anchorEl);
 
+  //popover 2
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
   const handlePopoverOpen2 = (event) => {
-    if(screeWidth < 800) return
+    if (screeWidth < 800) return;
     setAnchorEl2(event.currentTarget);
   };
-
   const handlePopoverClose2 = () => {
     setAnchorEl2(null);
   };
-
   const open2 = Boolean(anchorEl2);
 
-  //popover 2
-  const [anchorEl1, setAnchorEl1] = React.useState(null);
-
-  const handlePopoverOpen1 = (event) => {
-    if(screeWidth < 800) return
-    setAnchorEl1(event.currentTarget);
+  //popover 3
+  const [anchorEl3, setAnchorEl3] = React.useState(null);
+  const handlePopoverOpen3 = (event) => {
+    if (screeWidth < 800) return;
+    setAnchorEl3(event.currentTarget);
   };
-
-  const handlePopoverClose1 = () => {
-    setAnchorEl1(null);
+  const handlePopoverClose3 = () => {
+    setAnchorEl3(null);
   };
+  const open3 = Boolean(anchorEl3);
 
-  const open1 = Boolean(anchorEl1);
-
+  //handlers
   const handleAddToFavorites = () => {
     const alreadyAdded = props.favorites.some((p) => p.id === props.id);
     if (alreadyAdded) {
@@ -95,8 +91,6 @@ function Card(props) {
   const handleInfoDetails = () => {
     props.getPhotoDetails(props.id);
   };
-
-  const open = Boolean(anchorEl);
 
   return (
     <div className="container-photos">
@@ -127,8 +121,8 @@ function Card(props) {
             <InfoIcon
               className="info-icon"
               onClick={handleInfoDetails}
-              onMouseEnter={handlePopoverOpen1}
-              onMouseLeave={handlePopoverClose1}
+              onMouseEnter={handlePopoverOpen3}
+              onMouseLeave={handlePopoverClose3}
             />
           </Link>
         )}
@@ -177,8 +171,8 @@ function Card(props) {
         sx={{
           pointerEvents: "none",
         }}
-        open={open1}
-        anchorEl={anchorEl1}
+        open={open3}
+        anchorEl={anchorEl3}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left",
@@ -187,7 +181,7 @@ function Card(props) {
           vertical: "top",
           horizontal: "left",
         }}
-        onClose={handlePopoverClose1}
+        onClose={handlePopoverClose3}
         disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>Details</Typography>

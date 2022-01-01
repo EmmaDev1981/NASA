@@ -4,13 +4,14 @@ import Pagination from "../Pagination/pagination";
 import CardFav from "../CardFav/cardFav";
 import { connect } from "react-redux";
 import { getPhotosFromApi } from "../../Store/actions";
-import "./favorites.css";
 import Footer from "../Footer/footer";
+import "./favorites.css";
 
 function Favorites({ photos }) {
+  
+  //pagination index
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(24);
-
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
   var currentCards;
@@ -57,7 +58,7 @@ function Favorites({ photos }) {
         paginate={paginate}
         currentPage={currentPage}
       />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

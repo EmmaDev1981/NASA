@@ -1,29 +1,29 @@
 import React from "react";
-import "./cardFav.css";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  deleteFromFavorites,
-  getPhotoDetailsFavorites,
-} from "../../Store/actions";
 import { connect } from "react-redux";
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 import { Link } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
 import noimage from "../../assets/noimage.jpg";
+import "./cardFav.css";
+import {
+  deleteFromFavorites,
+  getPhotoDetailsFavorites,
+} from "../../Store/actions";
 
 function CardFav(props) {
+  
+  //Ui adjust
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
 
-  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
-
-  React.useEffect(()=>{
-    setScreenWidth(window.innerWidth)
-  }, [])
-
+  //toast "REMOVED CORRECTLY"
   const { enqueueSnackbar } = useSnackbar();
-
   const handleClickVariantDelete = () => {
     enqueueSnackbar("REMOVED CORRECTLY FROM FAVORITES", {
       anchorOrigin: {
@@ -35,17 +35,7 @@ function CardFav(props) {
     });
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handlePopoverOpen = (event) => {
-    if(screeWidth < 800) return
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
+  //handlers
   const handleDeleteFromFavorites = () => {
     props.deleteFromFavorites(props.id);
     handleClickVariantDelete();
@@ -55,35 +45,38 @@ function CardFav(props) {
     props.getPhotoDetailsFavorites(props.id);
   };
 
+  //popover
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopoverOpen = (event) => {
+    if (screeWidth < 800) return;
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
   const open = Boolean(anchorEl);
 
   //popover 1
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
-
-  const handlePopoverOpen2 = (event) => {
-    if(screeWidth < 800) return
-    setAnchorEl2(event.currentTarget);
-  };
-
-  const handlePopoverClose2 = () => {
-    setAnchorEl2(null);
-  };
-
-  const open2 = Boolean(anchorEl2);
-
-  //popover 2
   const [anchorEl1, setAnchorEl1] = React.useState(null);
-
   const handlePopoverOpen1 = (event) => {
-    if(screeWidth < 800) return
+    if (screeWidth < 800) return;
     setAnchorEl1(event.currentTarget);
   };
-
   const handlePopoverClose1 = () => {
     setAnchorEl1(null);
   };
-
   const open1 = Boolean(anchorEl1);
+
+  //popover 2
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const handlePopoverOpen2 = (event) => {
+    if (screeWidth < 800) return;
+    setAnchorEl2(event.currentTarget);
+  };
+  const handlePopoverClose2 = () => {
+    setAnchorEl2(null);
+  };
+  const open2 = Boolean(anchorEl2);
 
   return (
     <div className="container-photo-fav">
@@ -98,7 +91,7 @@ function CardFav(props) {
             <img src={`${props.image}`} alt="nophoto" className="Img"></img>
           </Typography>
         ) : (
-          <img src={noimage} alt="sin" className="Img"/>
+          <img src={noimage} alt="sin" className="Img" />
         )}
       </div>
 

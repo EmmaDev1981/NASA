@@ -61,7 +61,7 @@ function About() {
             different settings
           </p>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

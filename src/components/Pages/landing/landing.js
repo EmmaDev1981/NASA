@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import { Link } from "react-router-dom";
 import imageLanding from "../../assets/landing.jpg";
 import { connect } from "react-redux";
@@ -6,25 +6,30 @@ import nasaMobile from "../../assets/nasaMobile.jpg";
 import { getPhotosFromApi, getManifestByModel,getPhotosFromApod } from "../../Store/actions";
 import "./landing.css";
 
-function Landing({ getPhotosFromApi, getManifestByModel,getPhotosFromApod }) {
+function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod }) {
 
-  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
+  const [screeWidth, setScreenWidth] = useState(window.innerWidth);
+  const [data, setData] = useState({
+    date: "",
+    count: 4,
+    startDate: "",
+    endDate: "",
+  })
 
-  React.useEffect(()=>{
-    setScreenWidth(window.innerWidth)
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
+
+  const fetchPhotos = useCallback(() => {
+    getPhotosFromApi();
+    getPhotosFromApod(data);
+    getManifestByModel("curiosity");
   }, [])
 
-  const data = { 
-    date: "", 
-    count: 4, 
-    startDate: "", 
-    endDate: ""
-}
   useEffect(() => {
-    getPhotosFromApi();
-    getPhotosFromApod(data)
-    getManifestByModel("curiosity");
-  }, []);
+    fetchPhotos()
+  }, [fetchPhotos]);
+
   return (
     <div className="landing-div">
       {screeWidth > 600 ? (
@@ -39,4 +44,8 @@ function Landing({ getPhotosFromApi, getManifestByModel,getPhotosFromApod }) {
   );
 }
 
-export default connect(null, { getPhotosFromApi, getManifestByModel,getPhotosFromApod })(Landing);
+export default connect(null, {
+  getPhotosFromApi,
+  getManifestByModel,
+  getPhotosFromApod,
+})(Landing);

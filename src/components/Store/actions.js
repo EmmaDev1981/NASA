@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as dayjs from 'dayjs'
 import {
   GET_PHOTOS_FROM_NASA,
   GET_PHOTOS_BY_FILTER,
@@ -10,7 +11,7 @@ import {
   GET_PHOTO_DETAILS_FAVORITES,
   ADD_SEARCH_PARAMS_FAVORITES,
   DELETE_SEARCH_PARAMS_FAVORITES,
-  GET_PHOTOS_FROM_APOD
+  GET_PHOTOS_FROM_APOD,
 } from "./constants";
 
 //get photos by default from API
@@ -36,16 +37,11 @@ export function getPhotosFromApi() {
 
 //get photos by model by default
 export function getPhotosByModel(model) {
-  var earthDate = ''
-  if(model === 'curiosity'){
-    earthDate = '2021-12-28'
-  }
-  if(model === 'spirit'){
-    earthDate = '2010-03-21'
-  }
-  if(model === 'opportunity'){
-    earthDate = '2018-06-11'
-  }
+  let today = dayjs().subtract(2, 'day').format().split("T")[0]
+  let earthDate = "";
+  if (model === "curiosity") earthDate = today;
+  if (model === "opportunity") earthDate = "2018-06-11";
+  if (model === "spirit") earthDate = "2010-03-21";
   return async function (dispatch) {
     return await axios
       .get(
@@ -85,7 +81,6 @@ export function getManifestByModel(model) {
   };
 }
 
-
 //get queries custom by model, date (earth & sol) and camera.
 export function getPhotosBySearch(data) {
   const { date, rover, camera } = data;
@@ -93,7 +88,7 @@ export function getPhotosBySearch(data) {
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=${process.env.REACT_APP_API}`
-        )
+      )
       .then((response) => {
         let { photos } = response.data;
         dispatch({
@@ -105,50 +100,50 @@ export function getPhotosBySearch(data) {
         console.error(err);
         return err;
       });
-    };
-  }
-  
-  // Add to Favorites
-  export function addToFavorites(id) {
-    return function (dispatch) {
-      dispatch({ type: ADD_TO_FAVORITES, payload: id });
-    };
-  }
-  
-  // Delete from Favorites
-  export function deleteFromFavorites(id) {
-    return function (dispatch) {
-      dispatch({ type: DELETE_FROM_FAVORITES, payload: id });
-    };
-  }
+  };
+}
 
-  // Details by :id
+// Add to Favorites
+export function addToFavorites(id) {
+  return function (dispatch) {
+    dispatch({ type: ADD_TO_FAVORITES, payload: id });
+  };
+}
+
+// Delete from Favorites
+export function deleteFromFavorites(id) {
+  return function (dispatch) {
+    dispatch({ type: DELETE_FROM_FAVORITES, payload: id });
+  };
+}
+
+// Details by :id
 export function getPhotoDetails(id) {
   return function (dispatch) {
     dispatch({ type: GET_PHOTO_DETAILS, payload: id });
   };
 }
 
-  // Details from Favorites by :id
-  export function getPhotoDetailsFavorites(id) {
-    return function (dispatch) {
-      dispatch({ type: GET_PHOTO_DETAILS_FAVORITES, payload: id });
-    };
-  }
+// Details from Favorites by :id
+export function getPhotoDetailsFavorites(id) {
+  return function (dispatch) {
+    dispatch({ type: GET_PHOTO_DETAILS_FAVORITES, payload: id });
+  };
+}
 
-  // Add searched parameters
-  export function addSearchParamFavorites(data) {
-    return function (dispatch) {
-      dispatch({ type: ADD_SEARCH_PARAMS_FAVORITES, payload: data });
-    };
-  }
+// Add searched parameters
+export function addSearchParamFavorites(data) {
+  return function (dispatch) {
+    dispatch({ type: ADD_SEARCH_PARAMS_FAVORITES, payload: data });
+  };
+}
 
-   // Delete searched parameters by :id
-   export function deleteSearchParamFavorites(id) {
-    return function (dispatch) {
-      dispatch({ type: DELETE_SEARCH_PARAMS_FAVORITES, payload: id });
-    };
-  }
+// Delete searched parameters by :id
+export function deleteSearchParamFavorites(id) {
+  return function (dispatch) {
+    dispatch({ type: DELETE_SEARCH_PARAMS_FAVORITES, payload: id });
+  };
+}
 
 //APOD
 export function getPhotosFromApod(data) {
@@ -159,7 +154,7 @@ export function getPhotosFromApod(data) {
         `https://api.nasa.gov/planetary/apod?&date=${date}&count=${count}&start_date=${startDate}&end_date=${endDate}&api_key=${process.env.REACT_APP_API}`
       )
       .then((response) => {
-          dispatch({
+        dispatch({
           type: GET_PHOTOS_FROM_APOD,
           payload: response.data,
         });

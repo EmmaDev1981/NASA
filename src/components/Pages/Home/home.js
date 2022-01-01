@@ -1,25 +1,29 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import Navigation from "../Nav/nav";
 import Paginate from "../Pagination/pagination";
 import Card from "../Card/card";
 import Filter from "../Filter/filter";
 import { connect } from "react-redux";
 import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
-import "./home.css";
 import Manifest from "../Manifest/manifest";
 import Footer from "../Footer/footer";
 import Lazyload from "react-lazyload";
+import "./home.css";
 
 function Home({ photos }) {
 
-  useEffect(() => {
+  const fetchPhotos = useCallback(() => {
     getPhotosFromApi();
     getManifestByModel("curiosity");
-  }, []);
+  }, [])
 
+  useEffect(() => {
+    fetchPhotos()
+  }, [fetchPhotos]);
+
+  //pagination index
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(25); //max photos x page
-
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
   var currentCards;
@@ -40,29 +44,19 @@ function Home({ photos }) {
       </div>
       <Manifest />
       <Filter />
-      <Paginate
-        cardPerPage={cardPerPage}
-        totalCards={photos.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
       <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
-            <Lazyload
-            key={g.id}
-            height={200}
-            offset={-100}
-            >
-            <Card
-              key={g.id}
-              name={g.rover.name}
-              date={g.earth_date}
-              sol={g.sol}
-              camera={g.camera.name}
-              image={g.img_src}
-              id={g.id}
-            />
+            <Lazyload key={g.id} height={200} offset={-100}>
+              <Card
+                key={g.id}
+                name={g.rover.name}
+                date={g.earth_date}
+                sol={g.sol}
+                camera={g.camera.name}
+                image={g.img_src}
+                id={g.id}
+              />
             </Lazyload>
           ))
         ) : typeof currentCards === "string" ? (
@@ -75,7 +69,13 @@ function Home({ photos }) {
           </div>
         )}
       </div>
-      <Footer/>
+      <Paginate
+        cardPerPage={cardPerPage}
+        totalCards={photos.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+      <Footer />
     </div>
   );
 }

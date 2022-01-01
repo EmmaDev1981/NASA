@@ -1,11 +1,17 @@
 import React from 'react'
+import Navbar from '../Nav/nav'
+import pagenotfound from '../../assets/pagenotfound.png'
+import './page404.css'
 
 function Page404() {
     return (
-        <div>
-            <h1>PAGE NOT FOUND - Error 404 -</h1>
+      <div>
+        <Navbar />
+        <div className="not-found-div">
+          <img src={pagenotfound} alt="notfound"></img>
         </div>
-    )
+      </div>
+    );
 }
 
 export default Page404

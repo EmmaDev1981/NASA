@@ -2,12 +2,11 @@ import React from "react";
 import NavBar from "../Nav/nav";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import "./details.css";
 import Footer from "../Footer/footer";
 import { Table } from 'react-bootstrap'
+import "./details.css";
 
 function Details({ photoDetails }) {
-
   return (
     <div>
       <NavBar />
@@ -24,25 +23,25 @@ function Details({ photoDetails }) {
               <img src={photoDetails[0].img_src} alt="sin" />
             </div>
             <Table striped bordered hover className="wrapper-title-div">
-        <tbody>
-          <tr>
-            <td>Rover:</td>
-            <td>{photoDetails[0].rover.name}</td>
-          </tr>
-          <tr>
-            <td>Photo Sol Date:</td>
-            <td> {photoDetails[0].sol}</td>
-          </tr>
-          <tr>
-            <td>Photo Earth Date:</td>
-            <td>{photoDetails[0].earth_date}</td>
-          </tr>
-          <tr>
-            <td>Camera: </td>
-            <td> {photoDetails[0].camera.full_name}</td>
-          </tr>
-        </tbody>
-      </Table>
+              <tbody>
+                <tr>
+                  <td>Rover:</td>
+                  <td>{photoDetails[0].rover.name}</td>
+                </tr>
+                <tr>
+                  <td>Photo Sol Date:</td>
+                  <td> {photoDetails[0].sol}</td>
+                </tr>
+                <tr>
+                  <td>Photo Earth Date:</td>
+                  <td>{photoDetails[0].earth_date}</td>
+                </tr>
+                <tr>
+                  <td>Camera: </td>
+                  <td> {photoDetails[0].camera.full_name}</td>
+                </tr>
+              </tbody>
+            </Table>
             <div className="back-button-details">
               <NavLink to="/home">
                 <button>BACK</button>
@@ -53,7 +52,7 @@ function Details({ photoDetails }) {
       ) : (
         <h3>No hay detalles</h3>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

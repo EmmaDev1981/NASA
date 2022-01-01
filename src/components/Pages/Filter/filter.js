@@ -1,16 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
-import {
-  getPhotosByModel,
-  getManifestByModel,
-  getPhotosBySearch,
-  addSearchParamFavorites,
-  deleteSearchParamFavorites
-} from "../../Store/actions";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./filter.css";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -23,7 +13,16 @@ import Slide from "@material-ui/core/Slide";
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { Modal, Button } from 'react-bootstrap'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-datepicker/dist/react-datepicker.css";
+import "./filter.css";
+import {
+  getPhotosByModel,
+  getManifestByModel,
+  getPhotosBySearch,
+  addSearchParamFavorites,
+  deleteSearchParamFavorites
+} from "../../Store/actions";
 
 function Filter({
   getPhotosByModel,
@@ -32,7 +31,7 @@ function Filter({
   getPhotosBySearch,
   addSearchParamFavorites,
   searchedFavorites,
-  deleteSearchParamFavorites
+  deleteSearchParamFavorites,
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [modelRover, setModelRover] = useState("");
@@ -40,38 +39,36 @@ function Filter({
   const [selectedValue, setSelectedValue] = useState("b");
   const [martianDate, setMartianDate] = useState(1000);
   const [show, setShow] = useState(false);
-  const [itemSelected, setItemSelected] = useState('')
+  const [itemSelected, setItemSelected] = useState("");
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  //input reference
+  const focusInputRef = useRef();
+  useEffect(() => {
+    focusInputRef.current.focus();
+  }, []);
 
+  
   //popover 1
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
   
   //popover 2
   const [anchorEl1, setAnchorEl1] = React.useState(null);
-
   const handlePopoverOpen1 = (event) => {
     setAnchorEl1(event.currentTarget);
   };
-
   const handlePopoverClose1 = () => {
     setAnchorEl1(null);
   };
-
   const open1 = Boolean(anchorEl1);
-
+  
+  //set and format dates
   var dates = `sol=${manifest.photo_manifest.max_sol}`;
   if (selectedValue === "a") {
     dates = `earth_date=${startDate.toISOString().split("T")[0]}`;
@@ -79,15 +76,16 @@ function Filter({
   if (selectedValue === "b") {
     dates = `sol=${martianDate}`;
   }
-
-  var id = Date.now().toString()
+  
+  var id = Date.now().toString();
   const data = {
-    id: id.slice(9,13),
+    id: id.slice(9, 13),
     date: dates,
     camera: cameraRover || "fhaz",
     rover: modelRover || "curiosity",
   };
-
+  
+  //set cameras for option menu
   if (manifest && manifest?.photo_manifest.photos.length > 1) {
     var uniqueObjects = manifest.photo_manifest.photos.map(
       (cam) => cam.cameras
@@ -96,61 +94,63 @@ function Filter({
     var camerasArr = [...new Set(flattened)];
   }
 
+  //handlers
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+  
   const handleSelectRover = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setModelRover(e.target.value);
     getManifestByModel(e.target.value);
     getPhotosByModel(e.target.value);
   };
-
+  
   const handleSelectCameras = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setCameraRover(e.target.value);
   };
-
+  
   const handleMatianSolDate = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setMartianDate(e.target.value);
   };
 
   const handleSubmit = () => {
     getPhotosBySearch(data);
-    addSearchParamFavorites(data)
+    addSearchParamFavorites(data);
     handleClickVariantOk();
   };
 
   const handleSubmitSearcedFav = (e) => {
-    e.preventDefault()
-    setItemSelected(e.target.value)
-    setShow(true)
+    e.preventDefault();
+    setItemSelected(e.target.value);
+    setShow(true);
   };
 
   //modal handlers
-
   const handleClose = () => {
-    setShow(false)
+    setShow(false);
   };
-
   const handleSearch = () => {
-    setShow(false)
-    if(itemSelected === 'default') return
-    let search = searchedFavorites.filter((fav) => fav.id == itemSelected)
+    setShow(false);
+    if (itemSelected === "default") return;
+    let search = searchedFavorites.filter((fav) => fav.id == itemSelected);
     getPhotosBySearch(search[0]);
-    handleClickVariantSearhFav()
+    handleClickVariantSearhFav();
   };
-
   const handleRemoveRedords = () => {
-    if(itemSelected === 'default') {
-      setShow(false)
-      return
-    } 
-    deleteSearchParamFavorites(itemSelected)
-    setShow(false)
-    handleClickRemoveItemFromSearch()
+    if (itemSelected === "default") {
+      setShow(false);
+      return;
+    }
+    deleteSearchParamFavorites(itemSelected);
+    setShow(false);
+    handleClickRemoveItemFromSearch();
   };
 
+  //toast 1 "SEARCH...."
   const { enqueueSnackbar } = useSnackbar();
-
   const handleClickVariantOk = () => {
     enqueueSnackbar(
       `SEARCH: ${data.rover.toUpperCase()} -- ${data.camera.toUpperCase()} -- ${data.date.toUpperCase()}`,
@@ -165,39 +165,35 @@ function Filter({
     );
   };
 
+  //toast 2 "SEARCH...."
   const handleClickVariantSearhFav = () => {
-    enqueueSnackbar(
-      `SEARCH BY SAVED PARAMETERS SUCCESS`,
-      {
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        TransitionComponent: Slide,
-        variant: "success",
-      }
-    );
+    enqueueSnackbar(`SEARCH BY SAVED PARAMETERS SUCCESS`, {
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "left",
+      },
+      TransitionComponent: Slide,
+      variant: "success",
+    });
   };
 
+  //toast 3 "warning search delete...."
   const handleClickRemoveItemFromSearch = () => {
-    enqueueSnackbar(
-      `SAVED SEARCH PARAMETER DELETED`,
-      {
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        TransitionComponent: Slide,
-        variant: "warning",
-      }
-    );
+    enqueueSnackbar(`SAVED SEARCH PARAMETER DELETED`, {
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "left",
+      },
+      TransitionComponent: Slide,
+      variant: "warning",
+    });
   };
 
   return (
     <div className="container-div">
-    <div className="customize-title-search">
-      <h2>Customize your Photo´s search</h2>
-    </div>
+      <div className="customize-title-search">
+        <h2>Customize your Photo´s search</h2>
+      </div>
       <FormControl component="fieldset">
         <FormLabel component="legend">Rover Model</FormLabel>
         <RadioGroup
@@ -262,7 +258,9 @@ function Filter({
           onChange={handleMatianSolDate}
           variant="standard"
           color="warning"
+          placeholder="1000"
           disabled={selectedValue === "a" ? true : false}
+          inputRef={focusInputRef}
           focused
         />
       </Box>
@@ -284,7 +282,11 @@ function Filter({
           disabled={selectedValue === "b" ? true : false}
         />
       </div>
-      <Button className="button-search" variant="primary" onClick={handleSubmit}>
+      <Button
+        className="button-search"
+        variant="primary"
+        onClick={handleSubmit}
+      >
         SEARCH
       </Button>
       <select
@@ -299,70 +301,87 @@ function Filter({
         {searchedFavorites.length > 0 &&
           searchedFavorites.map((g) => (
             <option key={g.id} value={g.id}>
-              {`Search ID: ${g.id && g.id} <> Model: ${g.rover && g.rover.toUpperCase()} <> Date: ${g.date && g.date} <> Camera: ${g.camera && g.camera.toUpperCase()} `}
+              {`Search ID: ${g.id && g.id} <> Model: ${
+                g.rover && g.rover.toUpperCase()
+              } <> Date: ${g.date && g.date} <> Camera: ${
+                g.camera && g.camera.toUpperCase()
+              } `}
             </option>
           ))}
       </select>
       <Popover
         id="mouse-over-popover"
         sx={{
-          pointerEvents: 'none',
+          pointerEvents: "none",
         }}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>{`Select an EARTH DATE between: ${manifest && manifest.photo_manifest.landing_date} and ${manifest && manifest.photo_manifest.max_date}`}</Typography>
+        <Typography sx={{ p: 1 }}>{`Select an EARTH DATE between: ${
+          manifest && manifest.photo_manifest.landing_date
+        } and ${manifest && manifest.photo_manifest.max_date}`}</Typography>
       </Popover>
       <Popover
         id="mouse-over-popover"
         sx={{
-          pointerEvents: 'none',
+          pointerEvents: "none",
         }}
         open={open1}
         anchorEl={anchorEl1}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
         onClose={handlePopoverClose1}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>{`Select a MARTIAN SOL DATE between: ${0} and ${manifest && manifest.photo_manifest.max_sol}`}</Typography>
+        <Typography
+          sx={{ p: 1 }}
+        >{`Select a MARTIAN SOL DATE between: ${0} and ${
+          manifest && manifest.photo_manifest.max_sol
+        }`}</Typography>
       </Popover>
       <div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Saved Search Parameters</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Please select:</Modal.Body>
-        <Modal.Body> - <strong>Remove: </strong> Selected record will be deleted definitly</Modal.Body>
-        <Modal.Body> - <strong>Search: </strong> Using the saved parameters</Modal.Body>
-        <Modal.Footer>
-          <Button variant="warning" onClick={handleRemoveRedords}>
-            Remove
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSearch}>
-            Search
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Saved Search Parameters</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Please select:</Modal.Body>
+          <Modal.Body>
+            {" "}
+            - <strong>Remove: </strong> Selected record will be deleted
+            definitly
+          </Modal.Body>
+          <Modal.Body>
+            {" "}
+            - <strong>Search: </strong> Using the saved parameters
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="warning" onClick={handleRemoveRedords}>
+              Remove
+            </Button>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSearch}>
+              Search
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );

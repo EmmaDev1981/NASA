@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import Navbar from '../Nav/nav'
 import {connect} from 'react-redux'
 import {getPhotosFromApod} from '../../Store/actions'
@@ -15,8 +15,14 @@ import Slide from "@material-ui/core/Slide";
 
 function Apod({getPhotosFromApod, apodPhotos}) {
 
-  const { enqueueSnackbar } = useSnackbar();
+  //input reference
+  const focusInputRef = useRef();
+  useEffect(() => {
+    focusInputRef.current.focus();
+  },[])
 
+  //toast "loading....please wait"
+  const { enqueueSnackbar } = useSnackbar();
   const handleClickLoading = () => {
     enqueueSnackbar(
       `LOADING.....PLEASE WAIT`,
@@ -31,6 +37,7 @@ function Apod({getPhotosFromApod, apodPhotos}) {
     );
   }
 
+    //format data to search
     const [data, setData] = useState(
       { 
         date: "", 
@@ -39,15 +46,15 @@ function Apod({getPhotosFromApod, apodPhotos}) {
         endDate: ""
     }
     )
-
     const handleSearch = () => {
         handleClickLoading()
         getPhotosFromApod(data)
     }
 
+
+      //pagination index
       const [currentPage, setCurrentPage] = useState(1);
       const [cardPerPage] = useState(24);
-    
       const indexOfLastCard = currentPage * cardPerPage;
       const indexOfFirstCard = indexOfLastCard - cardPerPage;
       var currentCards;
@@ -60,6 +67,7 @@ function Apod({getPhotosFromApod, apodPhotos}) {
         setCurrentPage(pageNumber);
       };
 
+      //set the number of aleatory photos to search
       const handleApodPhotos = (e) => {
         e.preventDefault()
         setData({ 
@@ -69,74 +77,73 @@ function Apod({getPhotosFromApod, apodPhotos}) {
           endDate: ""
       });
       };
+
     return (
       <div>
         <Navbar />
         <div className="home-sub-title">
           <h2>Astronomy Picture of the Day</h2>
         </div>
-        <div className='div-title-qty'>
-        <p>INSERT A NUMBER BETWEEN 1 & 100</p>
+        <div className="div-title-qty">
+          <p>INSERT A NUMBER BETWEEN 1 & 100</p>
         </div>
-        <div className='input-box-photos'>
-        <Box
-        component="form"
-        sx={{
-          "& > :not(style)": { m: 2, width: "15ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          label="Photos QTY"
-          onChange={handleApodPhotos}
-          variant="standard"
-          color="warning"
-          focused
-        />
-      </Box>
+        <div className="input-box-photos">
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 2, width: "15ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              label="Photos QTY"
+              onChange={handleApodPhotos}
+              variant="standard"
+              color="warning"
+              placeholder="4"
+              inputRef={focusInputRef}
+              focused
+            />
+          </Box>
         </div>
-        <div className='boton-apod-search'>
-        <Button variant="primary" onClick={handleSearch}>
+        <div className="boton-apod-search">
+          <Button variant="primary" onClick={handleSearch}>
             ALEATORY PHOTOS
           </Button>
         </div>
-      <Pagination
-        cardPerPage={cardPerPage}
-        totalCards={apodPhotos.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+        <Pagination
+          cardPerPage={cardPerPage}
+          totalCards={apodPhotos.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
         <div className="games-div">
-        {currentCards.length >= 1 ? (
-          currentCards.map((g) => (
-            <LazyLoad
-              key={g.date}
-              height={200}
-              offset={-200}
-            >
-            <CardApod
-              key={g.date}
-              title={g.title}
-              date={g.date}
-              explanation={g.explanation}
-              hdurl={g.hdurl}
-              image={g.url}
-              id={g.date}
-            />
-            </LazyLoad>
-          ))
-        ) : typeof currentCards === "string" ? (
-          <div>
-            <p>LOADING....</p>
-          </div>
-        ) : (
-          <div>
-            <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE OR CAMERA</h1>
-          </div>
-        )}
-      </div>
-      <Footer/>
+          {currentCards.length >= 1 ? (
+            currentCards.map((g) => (
+              <LazyLoad key={g.date} height={200} offset={-200}>
+                <CardApod
+                  key={g.date}
+                  title={g.title}
+                  date={g.date}
+                  explanation={g.explanation}
+                  hdurl={g.hdurl}
+                  image={g.url}
+                  id={g.date}
+                />
+              </LazyLoad>
+            ))
+          ) : typeof currentCards === "string" ? (
+            <div>
+              <p>LOADING....</p>
+            </div>
+          ) : (
+            <div>
+              <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE OR CAMERA</h1>
+            </div>
+          )}
+        </div>
+        <Footer />
       </div>
     );
 }

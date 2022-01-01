@@ -1,44 +1,38 @@
 import React from "react";
-import "./cardapod.css";
 import noimage from "../../assets/noimage.jpg";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import HdIcon from '@mui/icons-material/Hd';
 import { connect } from "react-redux";
+import "./cardapod.css";
 
 function CardApod(props) {
+  //UI adjust
+  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
 
-  const [screeWidth, setScreenWidth] = React.useState(window.innerWidth)
-
-  React.useEffect(()=>{
-    setScreenWidth(window.innerWidth)
-  }, [])
-
-  //popover 1
+  //popover
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handlePopoverOpen = (event) => {
-    if(screeWidth < 800) return
+    if (screeWidth < 800) return;
     setAnchorEl(event.currentTarget);
   };
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
   const open = Boolean(anchorEl);
 
-  //popover 2
+  //popover 1
   const [anchorEl1, setAnchorEl1] = React.useState(null);
-
   const handlePopoverOpen1 = (event) => {
-    if(screeWidth < 800) return
+    if (screeWidth < 800) return;
     setAnchorEl1(event.currentTarget);
   };
-
   const handlePopoverClose1 = () => {
     setAnchorEl1(null);
   };
-
   const open1 = Boolean(anchorEl1);
 
   return (
@@ -51,7 +45,11 @@ function CardApod(props) {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <img src={`${props.image}`} alt="--- No photo Founded ---" className="Img"></img>
+            <img
+              src={`${props.image}`}
+              alt="--- No photo Founded ---"
+              className="Img"
+            ></img>
           </Typography>
         ) : (
           <img src={noimage} alt="notFound" className="Img"></img>
@@ -111,7 +109,4 @@ function CardApod(props) {
   );
 }
 
-
-export default connect()(
- CardApod
-);
+export default connect()(CardApod);
