@@ -7,7 +7,7 @@ function Footer() {
     <div className="footer-div">
       <CFooter>
         <span>&copy; 2021 NASA API - </span>
-        <span>Powered by Emmanuel N.</span>
+        <span>EmmaDev1981</span>
       </CFooter>
     </div>
   );

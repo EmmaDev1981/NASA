@@ -360,24 +360,21 @@ function Filter({
           <Modal.Header closeButton>
             <Modal.Title>Saved Search Parameters</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Please select:</Modal.Body>
           <Modal.Body>
-            {" "}
             - <strong>Remove: </strong> Selected record will be deleted
             definitly
           </Modal.Body>
           <Modal.Body>
-            {" "}
             - <strong>Search: </strong> Using the saved parameters
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className="buttons-modal">
             <Button variant="warning" onClick={handleRemoveRedords}>
               Remove
             </Button>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button className="button-close-modal" variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSearch}>
+            <Button className="button-search-modal" variant="primary" onClick={handleSearch}>
               Search
             </Button>
           </Modal.Footer>

@@ -56,6 +56,15 @@
     border: 2px solid rgb(255, 145, 0)
 }
 
+.buttons-modal {
+    display: flex;
+    justify-content: left;
+}
+
+.button-close-modal {
+    margin-left: 230px;
+}
+
 .optionGroup {
     padding: 10px;
     font-family: 'Press Start 2P';
@@ -63,4 +72,21 @@
 
 .button-search {
     margin: 30px;
+    width: 130px;
+    font-size:x-large;
+    font-weight: 500;
+    color: rgb(250, 248, 248);
+}
+
+@media only screen and (max-width: 550px) {
+
+    .buttons-modal {
+        display: flex;
+        justify-content: left;
+    }
+    
+    .button-close-modal {
+        margin-left: 70px;
+    }
+  
 }

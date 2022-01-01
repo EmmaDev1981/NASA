@@ -53,12 +53,12 @@
 }
 
 .fav-icon {
-  margin-right: 80px;
-  color: red;
+  margin-right: 260px;
+  color: rgb(7, 6, 6);
 }
 
 .info-icon {
-  color: blue;
+  color: rgb(8, 8, 8);
 }
 
 button {
