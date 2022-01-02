@@ -8,6 +8,7 @@ import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
 import Manifest from "../Manifest/manifest";
 import Footer from "../Footer/footer";
 import Lazyload from "react-lazyload";
+import noresults from '../../assets/noresults.jpeg'
 import "./home.css";
 
 function Home({ photos }) {
@@ -70,8 +71,8 @@ function Home({ photos }) {
             <p>LOADING....</p>
           </div>
         ) : (
-          <div>
-            <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE OR CAMERA</h1>
+          <div className="noresults-div">
+            <img src={noresults} alt='noresults'></img>
           </div>
         )}
       </div>

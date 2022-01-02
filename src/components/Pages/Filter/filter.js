@@ -123,7 +123,10 @@ function Filter({
   };
 
   const handleSubmitSearcedFav = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    if(e.target.value === 'default') {
+      return
+    }
     setItemSelected(e.target.value);
     setShow(true);
   };

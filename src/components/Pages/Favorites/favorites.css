@@ -18,6 +18,15 @@
     font-size: x-large;
 }
 
+.no-fav-div {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 10px;
+}
+
 .nonono {
     width: 800px;
 }

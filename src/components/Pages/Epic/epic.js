@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Navbar from '../Nav/nav'
 import {connect} from 'react-redux'
 import {getInfoFromEpic} from '../../Store/actions'
@@ -41,7 +41,6 @@ function Epic({getInfoFromEpic, epicInfo}) {
   const handleSearch = () => {
         handleClickLoading()
         let date = startDate.toISOString().slice(0,10)
-        console.log(date)
         getInfoFromEpic(date)
         let formatDate = epicInfo[0].date.slice(0,10).replace(/\-/g, '/')
         setImageUrl(`https://api.nasa.gov/EPIC/archive/natural/${formatDate}/png/${epicInfo[0].image}.png?api_key=${process.env.REACT_APP_API}`)
@@ -54,61 +53,74 @@ function Epic({getInfoFromEpic, epicInfo}) {
           <h2>Earth Polychromatic Imaging Camera</h2>
         </div>
         <div>
-        <div className='title-div'>
-          <h3>SELECT THE DATE OF EPIC PHOTO</h3>
-        </div>
-        <div className='title-div'>
-        <div className='date-picker-div'>
-        <DatePicker
-          className="date-picker"
-          selected={startDate}
-          minDate={new Date("06-13-2015")}
-          maxDate={new Date()}
-          onChange={(date) => setStartDate(date)}
-        />
-        </div>
-      </div>
-        <div className="boton-apod-search">
-          <Button variant="primary" onClick={handleSearch}>
-            SEARCH PHOTO
-          </Button>
-        </div>
-        </div>
-          <div className='epic-div-img'>
-              <img src={imageUrl} alt="epicPhoto"></img>
+          <div className="title-div">
+            <h3>SELECT THE DATE OF EPIC PHOTO</h3>
           </div>
-          <Table striped bordered hover className="wrapper-title-div">
-              <tbody>
-                <tr>
-                  <td>Identifier:</td>
-                  <td>{epicInfo.length > 0 && epicInfo[0].identifier}</td>
-                </tr>
-                <tr>
-                  <td>Date:</td>
-                  <td> {epicInfo.length > 0 && epicInfo[0].date.slice(0,10)}</td>
-                </tr>
-                <tr>
-                  <td>Latitud:</td>
-                  <td>{epicInfo.length > 0 && epicInfo[0].centroid_coordinates.lat}</td>
-                </tr>
-                <tr>
-                  <td>Longitud:</td>
-                  <td>{epicInfo.length > 0 && epicInfo[0].centroid_coordinates.lon}</td>
-                </tr>
-                <tr>
-                  <td>Sun X:</td>
-                  <td> {epicInfo.length > 0 && epicInfo[0].sun_j2000_position.x}</td>
-                </tr>
-                <tr>
-                  <td>Sun Y:</td>
-                  <td>{epicInfo.length > 0 && epicInfo[0].sun_j2000_position.y}</td>
-                </tr>
-                <tr>
-                  <td>Sun Z:</td>
-                  <td>{epicInfo.length > 0 && epicInfo[0].sun_j2000_position.z}</td>
-                </tr>
-              </tbody>
-            </Table>
+          <div className="description-about-apod">
+            <p>
+              The EPIC API provides information on the daily imagery collected
+              by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument
+            </p>
+          </div>
+          <div className="title-div">
+            <div className="date-picker-div">
+              <DatePicker
+                className="date-picker"
+                selected={startDate}
+                minDate={new Date("06-13-2015")}
+                maxDate={new Date()}
+                onChange={(date) => setStartDate(date)}
+              />
+            </div>
+          </div>
+          <div className="boton-apod-search">
+            <Button variant="primary" onClick={handleSearch}>
+              SEARCH PHOTO
+            </Button>
+          </div>
+        </div>
+        <div className="epic-div-img">
+          <img src={imageUrl} alt="epicPhoto"></img>
+        </div>
+        <Table striped bordered hover className="wrapper-title-div">
+          <tbody>
+            <tr>
+              <td>Identifier:</td>
+              <td>{epicInfo.length > 0 && epicInfo[0].identifier}</td>
+            </tr>
+            <tr>
+              <td>Date:</td>
+              <td> {epicInfo.length > 0 && epicInfo[0].date.slice(0, 10)}</td>
+            </tr>
+            <tr>
+              <td>Latitud:</td>
+              <td>
+                {epicInfo.length > 0 && epicInfo[0].centroid_coordinates.lat}
+              </td>
+            </tr>
+            <tr>
+              <td>Longitud:</td>
+              <td>
+                {epicInfo.length > 0 && epicInfo[0].centroid_coordinates.lon}
+              </td>
+            </tr>
+            <tr>
+              <td>Sun X:</td>
+              <td>
+                {" "}
+                {epicInfo.length > 0 && epicInfo[0].sun_j2000_position.x}
+              </td>
+            </tr>
+            <tr>
+              <td>Sun Y:</td>
+              <td>{epicInfo.length > 0 && epicInfo[0].sun_j2000_position.y}</td>
+            </tr>
+            <tr>
+              <td>Sun Z:</td>
+              <td>{epicInfo.length > 0 && epicInfo[0].sun_j2000_position.z}</td>
+            </tr>
+          </tbody>
+        </Table>
         <Footer />
       </div>
     );

@@ -5,6 +5,7 @@ import CardFav from "../CardFav/cardFav";
 import { connect } from "react-redux";
 import { getPhotosFromApi } from "../../Store/actions";
 import Footer from "../Footer/footer";
+import noFavorite from '../../assets/noFavorite.jpg'
 import "./favorites.css";
 
 function Favorites({ photos }) {
@@ -47,8 +48,9 @@ function Favorites({ photos }) {
             <h1>Not found</h1>
           </div>
         ) : (
-          <div>
-            <h1>ANY FAVORITE PHOTO ADDED</h1>
+          <div className="no-fav-div">
+          <h3>No Favorite Photos</h3>
+            <img src={noFavorite} alt="noFav"></img>
           </div>
         )}
       </div>
