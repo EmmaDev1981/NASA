@@ -36,6 +36,20 @@ function Apod({getPhotosFromApod, apodPhotos}) {
       }
     );
   }
+  //toast "Wrong input range or character"
+  const handleClickBabInput = () => {
+    enqueueSnackbar(
+      `PLEASE ONLY NUMBERS BETWEEN 1 TO 100`,
+      {
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "left",
+        },
+        TransitionComponent: Slide,
+        variant: "warning",
+      }
+    );
+  }
 
     //format data to search
     const [data, setData] = useState(
@@ -47,8 +61,12 @@ function Apod({getPhotosFromApod, apodPhotos}) {
     }
     )
     const handleSearch = () => {
+      if(validate()) {
         handleClickLoading()
         getPhotosFromApod(data)
+      } else {
+        handleClickBabInput()
+      }
     }
 
 
@@ -77,6 +95,12 @@ function Apod({getPhotosFromApod, apodPhotos}) {
           endDate: ""
       });
       };
+
+      //validate input (only 1 to 100)
+      const validate = () => {
+        const regex = /^0*(?:[1-9][0-9]?|100)$/
+        return regex.test(parseInt(data.count))
+      }
 
     return (
       <div>
@@ -143,13 +167,13 @@ function Apod({getPhotosFromApod, apodPhotos}) {
               <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE OR CAMERA</h1>
             </div>
           )}
+        </div>
         <Pagination
           cardPerPage={cardPerPage}
           totalCards={apodPhotos.length}
           paginate={paginate}
           currentPage={currentPage}
         />
-        </div>
         <Footer />
       </div>
     );
