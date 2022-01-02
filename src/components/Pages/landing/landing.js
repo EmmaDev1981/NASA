@@ -2,11 +2,12 @@ import React, {useState, useEffect, useCallback} from "react";
 import { Link } from "react-router-dom";
 import imageLanding from "../../assets/landing.jpg";
 import { connect } from "react-redux";
+import * as dayjs from 'dayjs'
 import nasaMobile from "../../assets/nasaMobile.jpg";
-import { getPhotosFromApi, getManifestByModel,getPhotosFromApod } from "../../Store/actions";
+import { getPhotosFromApi, getManifestByModel,getPhotosFromApod, getInfoFromEpic } from "../../Store/actions";
 import "./landing.css";
 
-function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod }) {
+function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod, getInfoFromEpic }) {
 
   const [screeWidth, setScreenWidth] = useState(window.innerWidth);
   const [data, setData] = useState({
@@ -20,9 +21,12 @@ function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod }) {
     setScreenWidth(window.innerWidth);
   }, []);
 
+  let today = dayjs().subtract(3, 'day').format().split("T")[0]
+
   const fetchPhotos = useCallback(() => {
     getPhotosFromApi();
     getPhotosFromApod(data);
+    getInfoFromEpic(today)
     getManifestByModel("curiosity");
   }, [])
 
@@ -48,4 +52,5 @@ export default connect(null, {
   getPhotosFromApi,
   getManifestByModel,
   getPhotosFromApod,
+  getInfoFromEpic
 })(Landing);

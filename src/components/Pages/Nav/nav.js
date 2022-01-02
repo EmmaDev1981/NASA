@@ -21,6 +21,9 @@ function NavBar({favorites}) {
       <NavLink to="/apod">
         <button>APOD</button>
       </NavLink>
+      <NavLink to="/epic">
+        <button>EPIC</button>
+      </NavLink>
       <NavLink to="/favorites">
         <button>{`FAVORITES(${favItems})`}</button>
       </NavLink>

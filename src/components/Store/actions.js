@@ -12,6 +12,7 @@ import {
   ADD_SEARCH_PARAMS_FAVORITES,
   DELETE_SEARCH_PARAMS_FAVORITES,
   GET_PHOTOS_FROM_APOD,
+  GET_INFO_FROM_EPIC
 } from "./constants";
 
 //get photos by default from API
@@ -156,6 +157,26 @@ export function getPhotosFromApod(data) {
       .then((response) => {
         dispatch({
           type: GET_PHOTOS_FROM_APOD,
+          payload: response.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        return err;
+      });
+  };
+}
+
+//EPIC info
+export function getInfoFromEpic(date) {
+  return async function (dispatch) {
+    return await axios
+      .get(
+        `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${process.env.REACT_APP_API}`
+      )
+      .then((response) => {
+        dispatch({
+          type: GET_INFO_FROM_EPIC,
           payload: response.data,
         });
       })

@@ -1,0 +1,17 @@
+.div-epic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-picker-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.epic-div-img img{
+    width: 100%;
+    padding: 20px;
+}

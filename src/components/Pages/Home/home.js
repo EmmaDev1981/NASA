@@ -47,7 +47,13 @@ function Home({ photos }) {
       <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
-            <Lazyload key={g.id} height={200} offset={-100}>
+            <Lazyload 
+            key={g.id}
+            height={200} 
+            once={true}
+            offset={100}
+            debounce={300}
+            >
               <Card
                 key={g.id}
                 name={g.rover.name}

@@ -85,7 +85,14 @@ function Apod({getPhotosFromApod, apodPhotos}) {
           <h2>Astronomy Picture of the Day</h2>
         </div>
         <div className="div-title-qty">
-          <p>INSERT A NUMBER BETWEEN 1 & 100</p>
+          <h3>INSERT A NUMBER BETWEEN 1 & 100</h3>
+        </div>
+        <div className="description-about-apod">
+          <p>
+            Each day a different image or photograph of our fascinating universe
+            is featured, along with a brief explanation written by a
+            professional astronomer.
+          </p>
         </div>
         <div className="input-box-photos">
           <Box
@@ -112,12 +119,6 @@ function Apod({getPhotosFromApod, apodPhotos}) {
             ALEATORY PHOTOS
           </Button>
         </div>
-        <Pagination
-          cardPerPage={cardPerPage}
-          totalCards={apodPhotos.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
         <div className="games-div">
           {currentCards.length >= 1 ? (
             currentCards.map((g) => (
@@ -142,6 +143,12 @@ function Apod({getPhotosFromApod, apodPhotos}) {
               <h1>NO PHOTOS FOUND - PLEASE TRY ANOTHER DATE OR CAMERA</h1>
             </div>
           )}
+        <Pagination
+          cardPerPage={cardPerPage}
+          totalCards={apodPhotos.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
         </div>
         <Footer />
       </div>

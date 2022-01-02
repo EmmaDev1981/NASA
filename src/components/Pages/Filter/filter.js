@@ -279,6 +279,8 @@ function Filter({
           className="date-picker"
           selected={startDate}
           onChange={(date) => setStartDate(date)}
+          minDate={new Date("01-04-2004")}
+          maxDate={new Date()}
           disabled={selectedValue === "b" ? true : false}
         />
       </div>
