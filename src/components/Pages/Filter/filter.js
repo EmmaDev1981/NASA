@@ -331,6 +331,7 @@ function Filter({
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>{`Select an EARTH DATE between: ${
           manifest && manifest.photo_manifest.landing_date
@@ -353,6 +354,7 @@ function Filter({
         }}
         onClose={handlePopoverClose1}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography
           sx={{ p: 1 }}

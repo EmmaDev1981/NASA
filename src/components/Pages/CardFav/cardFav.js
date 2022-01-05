@@ -126,6 +126,7 @@ function CardFav(props) {
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>{props.name}</Typography>
         <Typography sx={{ p: 1 }}>{props.camera}</Typography>
@@ -147,6 +148,7 @@ function CardFav(props) {
         }}
         onClose={handlePopoverClose2}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>Remove from Favorites</Typography>
       </Popover>
@@ -167,6 +169,7 @@ function CardFav(props) {
         }}
         onClose={handlePopoverClose1}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>Details</Typography>
       </Popover>

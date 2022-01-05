@@ -80,6 +80,7 @@ function CardApod(props) {
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>{props.title}</Typography>
         <Typography sx={{ p: 1 }}>{props.date}</Typography>
@@ -102,6 +103,7 @@ function CardApod(props) {
         }}
         onClose={handlePopoverClose1}
         disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>HD PHOTO</Typography>
       </Popover>

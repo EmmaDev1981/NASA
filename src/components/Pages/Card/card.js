@@ -139,7 +139,8 @@ function Card(props) {
           horizontal: "left",
         }}
         onClose={handlePopoverClose}
-        disableRestoreFocus
+        // disableRestoreFocus
+        disableScrollLock
       >
         <Typography sx={{ p: 1 }}>{props.name}</Typography>
         <Typography sx={{ p: 1 }}>{props.camera}</Typography>
@@ -162,7 +163,8 @@ function Card(props) {
           horizontal: "left",
         }}
         onClose={handlePopoverClose2}
-        disableRestoreFocus
+        disableScrollLock
+        // disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>Add to Favorites</Typography>
       </Popover>
@@ -182,7 +184,8 @@ function Card(props) {
           horizontal: "left",
         }}
         onClose={handlePopoverClose3}
-        disableRestoreFocus
+        disableScrollLock
+        // disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>Details</Typography>
       </Popover>
