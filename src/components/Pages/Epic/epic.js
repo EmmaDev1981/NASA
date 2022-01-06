@@ -8,10 +8,12 @@ import Slide from "@material-ui/core/Slide";
 import DatePicker from "react-datepicker";
 import { useSnackbar } from "notistack";
 import { Table } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.css';
+import Spinner from 'react-bootstrap/Spinner';
 import * as dayjs from 'dayjs'
 import './epic.css'
 
-function Epic({getInfoFromEpic, epicInfo}) {
+function Epic({getInfoFromEpic, epicInfo, fetching}) {
 
     const [startDate, setStartDate] = useState(new Date());
 
@@ -78,9 +80,16 @@ function Epic({getInfoFromEpic, epicInfo}) {
               SEARCH PHOTO
             </Button>
           </div>
+            {
+        fetching && <div className='loading-div'>
+        <Spinner animation="border" variant="primary" />
+        </div>
+      }
         </div>
         <div className="epic-div-img">
+        <>
           <img src={imageUrl} alt="epicPhoto"></img>
+        </>
         </div>
         <Table striped bordered hover className="wrapper-title-div">
           <tbody>
@@ -128,7 +137,8 @@ function Epic({getInfoFromEpic, epicInfo}) {
 
 function mapStateToProps(state) {
     return {
-        epicInfo: state.epicInfo
+        epicInfo: state.epicInfo,
+        fetching: state.fetching
     }
 }
 

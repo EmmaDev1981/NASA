@@ -10,7 +10,8 @@ import {
   ADD_SEARCH_PARAMS_FAVORITES,
   DELETE_SEARCH_PARAMS_FAVORITES,
   GET_PHOTOS_FROM_APOD,
-  GET_INFO_FROM_EPIC
+  GET_INFO_FROM_EPIC,
+  GET_PHOTOS_STATUS
 } from "./constants";
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
   photoDetails: null,
   searchFavorites: [],
   apodPhotos: [],
-  epicInfo: []
+  epicInfo: [],
+  fetching: false
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -56,36 +58,48 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         photos: action.payload,
+        fetching: false
       };
+
+    case GET_PHOTOS_STATUS:
+      return {
+        ...state,
+        fetching: true
+      }
 
     case GET_PHOTOS_FROM_APOD:
       return {
         ...state,
         apodPhotos: action.payload,
+        fetching: false
       };
 
     case GET_INFO_FROM_EPIC:
       return {
         ...state,
         epicInfo: action.payload,
+        fetching: false
       };
 
     case GET_PHOTOS_BY_SEARCH:
       return {
         ...state,
         photos: action.payload,
+        fetching: false
       };
 
     case GET_PHOTOS_BY_FILTER:
       return {
         ...state,
         photos: action.payload,
+        fetching: false
       };
 
     case GET_MANIFESTS_BY_ROVER_MODEL:
       return {
         ...state,
         manifest: action.payload,
+        fetching: false
       };
 
     case GET_PHOTO_DETAILS:

@@ -12,12 +12,16 @@ import {
   ADD_SEARCH_PARAMS_FAVORITES,
   DELETE_SEARCH_PARAMS_FAVORITES,
   GET_PHOTOS_FROM_APOD,
-  GET_INFO_FROM_EPIC
+  GET_INFO_FROM_EPIC,
+  GET_PHOTOS_STATUS
 } from "./constants";
 
 //get photos by default from API
 export function getPhotosFromApi() {
   return async function (dispatch) {
+    dispatch({
+      type: GET_PHOTOS_STATUS
+    })
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=3340&api_key=${process.env.REACT_APP_API}`
@@ -44,6 +48,9 @@ export function getPhotosByModel(model) {
   if (model === "opportunity") earthDate = "2018-06-11";
   if (model === "spirit") earthDate = "2010-03-21";
   return async function (dispatch) {
+    dispatch({
+      type: GET_PHOTOS_STATUS
+    })
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/${model}/photos?earth_date=${earthDate}&api_key=${process.env.REACT_APP_API}`
@@ -65,6 +72,9 @@ export function getPhotosByModel(model) {
 //get manifiest by model
 export function getManifestByModel(model) {
   return async function (dispatch) {
+    dispatch({
+      type: GET_PHOTOS_STATUS
+    })
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/manifests/${model}/?api_key=${process.env.REACT_APP_API}`
@@ -86,6 +96,9 @@ export function getManifestByModel(model) {
 export function getPhotosBySearch(data) {
   const { date, rover, camera } = data;
   return async function (dispatch) {
+    dispatch({
+      type: GET_PHOTOS_STATUS
+    })
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=${process.env.REACT_APP_API}`
@@ -150,6 +163,9 @@ export function deleteSearchParamFavorites(id) {
 export function getPhotosFromApod(data) {
   const { date, count, startDate, endDate } = data;
   return async function (dispatch) {
+    dispatch({
+      type: GET_PHOTOS_STATUS
+    })
     return await axios
       .get(
         `https://api.nasa.gov/planetary/apod?&date=${date}&count=${count}&start_date=${startDate}&end_date=${endDate}&api_key=${process.env.REACT_APP_API}`
@@ -170,6 +186,9 @@ export function getPhotosFromApod(data) {
 //EPIC info
 export function getInfoFromEpic(date) {
   return async function (dispatch) {
+    dispatch({
+      type: GET_PHOTOS_STATUS
+    })
     return await axios
       .get(
         `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${process.env.REACT_APP_API}`

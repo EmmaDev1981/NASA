@@ -13,7 +13,8 @@ import Slide from "@material-ui/core/Slide";
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { Modal, Button } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import Spinner from 'react-bootstrap/Spinner';
 import "react-datepicker/dist/react-datepicker.css";
 import "./filter.css";
 import {
@@ -32,6 +33,7 @@ function Filter({
   addSearchParamFavorites,
   searchedFavorites,
   deleteSearchParamFavorites,
+  fetching
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [modelRover, setModelRover] = useState("");
@@ -314,6 +316,9 @@ function Filter({
             </option>
           ))}
       </select>
+      {
+        fetching && <Spinner animation="border" variant="primary" />
+      }
       <Popover
         id="mouse-over-popover"
         sx={{
@@ -395,7 +400,8 @@ const mapStateToProps = (state) => {
   return {
     manifest: state.manifest,
     photos: state.photos,
-    searchedFavorites: state.searchFavorites
+    searchedFavorites: state.searchFavorites,
+    fetching: state.fetching
   };
 };
 

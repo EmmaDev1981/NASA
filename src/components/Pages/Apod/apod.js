@@ -12,8 +12,10 @@ import Footer from '../Footer/footer'
 import LazyLoad from 'react-lazyload'
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import 'bootstrap/dist/css/bootstrap.css';
+import Spinner from 'react-bootstrap/Spinner';
 
-function Apod({getPhotosFromApod, apodPhotos}) {
+function Apod({getPhotosFromApod, apodPhotos, fetching}) {
 
   //input reference
   const focusInputRef = useRef();
@@ -143,6 +145,11 @@ function Apod({getPhotosFromApod, apodPhotos}) {
             ALEATORY PHOTOS
           </Button>
         </div>
+      {
+        fetching && <div className='loading-div'>
+        <Spinner animation="border" variant="primary" />
+        </div>
+      }
         <div className="games-div">
           {currentCards.length >= 1 ? (
             currentCards.map((g) => (
@@ -181,7 +188,8 @@ function Apod({getPhotosFromApod, apodPhotos}) {
 
 function mapStateToProps(state) {
     return {
-        apodPhotos: state.apodPhotos
+        apodPhotos: state.apodPhotos,
+        fetching: state.fetching
     }
 }
 
