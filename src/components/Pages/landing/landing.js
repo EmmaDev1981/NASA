@@ -4,10 +4,10 @@ import imageLanding from "../../assets/landing.jpg";
 import { connect } from "react-redux";
 import * as dayjs from 'dayjs'
 import nasaMobile from "../../assets/nasaMobile.jpg";
-import { getPhotosFromApi, getManifestByModel,getPhotosFromApod, getInfoFromEpic } from "../../Store/actions";
+import { getPhotosFromApi, getManifestByModel,getPhotosFromApod, getInfoFromEpic,doGoogleLoginAction } from "../../Store/actions";
 import "./landing.css";
 
-function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod, getInfoFromEpic }) {
+function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod, getInfoFromEpic, doGoogleLoginAction }) {
 
   const [screeWidth, setScreenWidth] = useState(window.innerWidth);
   const [data, setData] = useState({
@@ -19,6 +19,7 @@ function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod, getI
 
   useEffect(() => {
     setScreenWidth(window.innerWidth);
+    doGoogleLoginAction()
   }, []);
 
   let today = dayjs().subtract(3, 'day').format().split("T")[0]
@@ -52,5 +53,6 @@ export default connect(null, {
   getPhotosFromApi,
   getManifestByModel,
   getPhotosFromApod,
-  getInfoFromEpic
+  getInfoFromEpic,
+  doGoogleLoginAction
 })(Landing);

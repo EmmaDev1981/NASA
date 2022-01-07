@@ -12,3 +12,6 @@ export const GET_PHOTOS_FROM_APOD = "GET_PHOTOS_FROM_APOD";
 export const GET_INFO_FROM_EPIC = "GET_INFO_FROM_EPIC";
 export const GET_PHOTOS_STATUS = "GET_PHOTOS_STATUS";
 export const GET_PHOTOS_ERROR = "GET_PHOTOS_ERROR";
+export const LOGIN = "LOGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_ERROR = "LOGIN_ERROR";

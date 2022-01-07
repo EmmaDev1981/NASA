@@ -1,5 +1,6 @@
 import axios from "axios";
-import * as dayjs from 'dayjs'
+import * as dayjs from "dayjs";
+import { loginWithGoogle } from "../../firebase";
 import {
   GET_PHOTOS_FROM_NASA,
   GET_PHOTOS_BY_FILTER,
@@ -14,15 +15,18 @@ import {
   GET_PHOTOS_FROM_APOD,
   GET_INFO_FROM_EPIC,
   GET_PHOTOS_STATUS,
-  GET_PHOTOS_ERROR
+  GET_PHOTOS_ERROR,
+  LOGIN,
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
 } from "./constants";
 
 //get photos by default from API
 export function getPhotosFromApi() {
   return async function (dispatch) {
     dispatch({
-      type: GET_PHOTOS_STATUS
-    })
+      type: GET_PHOTOS_STATUS,
+    });
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=3340&api_key=${process.env.REACT_APP_API}`
@@ -37,8 +41,8 @@ export function getPhotosFromApi() {
       .catch((err) => {
         dispatch({
           type: GET_PHOTOS_ERROR,
-          payload: err
-        })
+          payload: err,
+        });
         console.error(err);
       });
   };
@@ -46,15 +50,15 @@ export function getPhotosFromApi() {
 
 //get photos by model by default
 export function getPhotosByModel(model) {
-  let today = dayjs().subtract(2, 'day').format().split("T")[0]
+  let today = dayjs().subtract(2, "day").format().split("T")[0];
   let earthDate = "";
   if (model === "curiosity") earthDate = today;
   if (model === "opportunity") earthDate = "2018-06-11";
   if (model === "spirit") earthDate = "2010-03-21";
   return async function (dispatch) {
     dispatch({
-      type: GET_PHOTOS_STATUS
-    })
+      type: GET_PHOTOS_STATUS,
+    });
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/${model}/photos?earth_date=${earthDate}&api_key=${process.env.REACT_APP_API}`
@@ -69,8 +73,8 @@ export function getPhotosByModel(model) {
       .catch((err) => {
         dispatch({
           type: GET_PHOTOS_ERROR,
-          payload: err
-        })
+          payload: err,
+        });
         console.error(err);
       });
   };
@@ -80,8 +84,8 @@ export function getPhotosByModel(model) {
 export function getManifestByModel(model) {
   return async function (dispatch) {
     dispatch({
-      type: GET_PHOTOS_STATUS
-    })
+      type: GET_PHOTOS_STATUS,
+    });
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/manifests/${model}/?api_key=${process.env.REACT_APP_API}`
@@ -95,8 +99,8 @@ export function getManifestByModel(model) {
       .catch((err) => {
         dispatch({
           type: GET_PHOTOS_ERROR,
-          payload: err
-        })
+          payload: err,
+        });
         console.error(err);
       });
   };
@@ -107,8 +111,8 @@ export function getPhotosBySearch(data) {
   const { date, rover, camera } = data;
   return async function (dispatch) {
     dispatch({
-      type: GET_PHOTOS_STATUS
-    })
+      type: GET_PHOTOS_STATUS,
+    });
     return await axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?${date}&camera=${camera}&api_key=${process.env.REACT_APP_API}`
@@ -123,8 +127,8 @@ export function getPhotosBySearch(data) {
       .catch((err) => {
         dispatch({
           type: GET_PHOTOS_ERROR,
-          payload: err
-        })
+          payload: err,
+        });
         console.error(err);
       });
   };
@@ -177,8 +181,8 @@ export function getPhotosFromApod(data) {
   const { date, count, startDate, endDate } = data;
   return async function (dispatch) {
     dispatch({
-      type: GET_PHOTOS_STATUS
-    })
+      type: GET_PHOTOS_STATUS,
+    });
     return await axios
       .get(
         `https://api.nasa.gov/planetary/apod?&date=${date}&count=${count}&start_date=${startDate}&end_date=${endDate}&api_key=${process.env.REACT_APP_API}`
@@ -192,8 +196,8 @@ export function getPhotosFromApod(data) {
       .catch((err) => {
         dispatch({
           type: GET_PHOTOS_ERROR,
-          payload: err
-        })
+          payload: err,
+        });
         console.error(err);
       });
   };
@@ -203,8 +207,8 @@ export function getPhotosFromApod(data) {
 export function getInfoFromEpic(date) {
   return async function (dispatch) {
     dispatch({
-      type: GET_PHOTOS_STATUS
-    })
+      type: GET_PHOTOS_STATUS,
+    });
     return await axios
       .get(
         `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${process.env.REACT_APP_API}`
@@ -218,9 +222,31 @@ export function getInfoFromEpic(date) {
       .catch((err) => {
         dispatch({
           type: GET_PHOTOS_ERROR,
-          payload: err
-        })
+          payload: err,
+        });
         console.error(err);
       });
   };
 }
+
+//Google Login
+export let doGoogleLoginAction = () => (dispatch) => {
+  dispatch({
+    type: LOGIN,
+  });
+  return loginWithGoogle()
+    .then((user) => {
+      console.log(user)
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { ...user },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: err.message,
+      });
+    });
+};
