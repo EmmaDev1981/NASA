@@ -15,13 +15,19 @@ import Slide from "@material-ui/core/Slide";
 import 'bootstrap/dist/css/bootstrap.css';
 import Spinner from 'react-bootstrap/Spinner';
 
-function Apod({getPhotosFromApod, apodPhotos, fetching}) {
+function Apod({getPhotosFromApod, apodPhotos, fetching, error}) {
 
   //input reference
   const focusInputRef = useRef();
   useEffect(() => {
     focusInputRef.current.focus();
   },[])
+
+  useEffect(() => {
+    if(error !== null){
+      handleError()
+  }
+  }, [error])
 
   //toast "loading....please wait"
   const { enqueueSnackbar } = useSnackbar();
@@ -52,6 +58,21 @@ function Apod({getPhotosFromApod, apodPhotos, fetching}) {
       }
     );
   }
+
+    //toast "network or server error"
+    const handleError = () => {
+      enqueueSnackbar(
+        `ERROR MESSAGE: ${error.message}`,
+        {
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "left",
+          },
+          TransitionComponent: Slide,
+          variant: "error",
+        }
+      );
+    }
 
     //format data to search
     const [data, setData] = useState(
@@ -150,6 +171,7 @@ function Apod({getPhotosFromApod, apodPhotos, fetching}) {
         <Spinner animation="border" variant="primary" />
         </div>
       }
+
         <div className="games-div">
           {currentCards.length >= 1 ? (
             currentCards.map((g) => (
@@ -189,7 +211,8 @@ function Apod({getPhotosFromApod, apodPhotos, fetching}) {
 function mapStateToProps(state) {
     return {
         apodPhotos: state.apodPhotos,
-        fetching: state.fetching
+        fetching: state.fetching,
+        error: state.error
     }
 }
 

@@ -13,7 +13,8 @@ import {
   DELETE_SEARCH_PARAMS_FAVORITES,
   GET_PHOTOS_FROM_APOD,
   GET_INFO_FROM_EPIC,
-  GET_PHOTOS_STATUS
+  GET_PHOTOS_STATUS,
+  GET_PHOTOS_ERROR
 } from "./constants";
 
 //get photos by default from API
@@ -34,8 +35,11 @@ export function getPhotosFromApi() {
         });
       })
       .catch((err) => {
+        dispatch({
+          type: GET_PHOTOS_ERROR,
+          payload: err
+        })
         console.error(err);
-        return err;
       });
   };
 }
@@ -63,8 +67,11 @@ export function getPhotosByModel(model) {
         });
       })
       .catch((err) => {
+        dispatch({
+          type: GET_PHOTOS_ERROR,
+          payload: err
+        })
         console.error(err);
-        return err;
       });
   };
 }
@@ -86,8 +93,11 @@ export function getManifestByModel(model) {
         });
       })
       .catch((err) => {
+        dispatch({
+          type: GET_PHOTOS_ERROR,
+          payload: err
+        })
         console.error(err);
-        return err;
       });
   };
 }
@@ -111,8 +121,11 @@ export function getPhotosBySearch(data) {
         });
       })
       .catch((err) => {
+        dispatch({
+          type: GET_PHOTOS_ERROR,
+          payload: err
+        })
         console.error(err);
-        return err;
       });
   };
 }
@@ -177,8 +190,11 @@ export function getPhotosFromApod(data) {
         });
       })
       .catch((err) => {
+        dispatch({
+          type: GET_PHOTOS_ERROR,
+          payload: err
+        })
         console.error(err);
-        return err;
       });
   };
 }
@@ -200,8 +216,11 @@ export function getInfoFromEpic(date) {
         });
       })
       .catch((err) => {
+        dispatch({
+          type: GET_PHOTOS_ERROR,
+          payload: err
+        })
         console.error(err);
-        return err;
       });
   };
 }

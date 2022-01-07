@@ -13,7 +13,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import * as dayjs from 'dayjs'
 import './epic.css'
 
-function Epic({getInfoFromEpic, epicInfo, fetching}) {
+function Epic({getInfoFromEpic, epicInfo, fetching, error}) {
 
     const [startDate, setStartDate] = useState(new Date());
 
@@ -21,6 +21,27 @@ function Epic({getInfoFromEpic, epicInfo, fetching}) {
     useEffect(()=> {
         getInfoFromEpic(today)
     },[])
+
+    useEffect(() => {
+      if(error !== null){
+        handleError()
+    }
+    }, [error])
+
+    //toast "network or server error"
+    const handleError = () => {
+      enqueueSnackbar(
+        `ERROR MESSAGE: ${error.message}`,
+        {
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "left",
+          },
+          TransitionComponent: Slide,
+          variant: "error",
+        }
+      );
+    }
 
   //toast "loading....please wait"
   const { enqueueSnackbar } = useSnackbar();
@@ -138,7 +159,8 @@ function Epic({getInfoFromEpic, epicInfo, fetching}) {
 function mapStateToProps(state) {
     return {
         epicInfo: state.epicInfo,
-        fetching: state.fetching
+        fetching: state.fetching,
+        error: state.error
     }
 }
 

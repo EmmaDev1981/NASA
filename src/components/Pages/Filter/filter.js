@@ -33,7 +33,8 @@ function Filter({
   addSearchParamFavorites,
   searchedFavorites,
   deleteSearchParamFavorites,
-  fetching
+  fetching,
+  error
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [modelRover, setModelRover] = useState("");
@@ -42,6 +43,29 @@ function Filter({
   const [martianDate, setMartianDate] = useState(1000);
   const [show, setShow] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
+
+  useEffect(() => {
+    if(error !== null){
+      handleError()
+  }
+  }, [error])
+
+  //toast "network or server error"
+  const handleError = () => {
+    enqueueSnackbar(
+      `ERROR MESSAGE: ${error.message}`,
+      {
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "left",
+        },
+        TransitionComponent: Slide,
+        variant: "error",
+      }
+    );
+  }
+
+
 
   //input reference
   const focusInputRef = useRef();
@@ -401,7 +425,8 @@ const mapStateToProps = (state) => {
     manifest: state.manifest,
     photos: state.photos,
     searchedFavorites: state.searchFavorites,
-    fetching: state.fetching
+    fetching: state.fetching,
+    error: state.error
   };
 };
 

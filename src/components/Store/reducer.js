@@ -11,7 +11,8 @@ import {
   DELETE_SEARCH_PARAMS_FAVORITES,
   GET_PHOTOS_FROM_APOD,
   GET_INFO_FROM_EPIC,
-  GET_PHOTOS_STATUS
+  GET_PHOTOS_STATUS,
+  GET_PHOTOS_ERROR
 } from "./constants";
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
   searchFavorites: [],
   apodPhotos: [],
   epicInfo: [],
-  fetching: false
+  fetching: false,
+  error: null
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -58,7 +60,8 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         photos: action.payload,
-        fetching: false
+        fetching: false,
+        error: null
       };
 
     case GET_PHOTOS_STATUS:
@@ -67,39 +70,51 @@ export default function rootReducer(state = initialState, action) {
         fetching: true
       }
 
+    case GET_PHOTOS_ERROR:
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload
+      }
+
     case GET_PHOTOS_FROM_APOD:
       return {
         ...state,
         apodPhotos: action.payload,
-        fetching: false
+        fetching: false,
+        error: null
       };
 
     case GET_INFO_FROM_EPIC:
       return {
         ...state,
         epicInfo: action.payload,
-        fetching: false
+        fetching: false,
+        error: null
       };
 
     case GET_PHOTOS_BY_SEARCH:
       return {
         ...state,
         photos: action.payload,
-        fetching: false
+        fetching: false,
+        error: null
       };
 
     case GET_PHOTOS_BY_FILTER:
       return {
         ...state,
         photos: action.payload,
-        fetching: false
+        fetching: false,
+        error: null
       };
 
     case GET_MANIFESTS_BY_ROVER_MODEL:
       return {
         ...state,
         manifest: action.payload,
-        fetching: false
+        fetching: false,
+        error: null
       };
 
     case GET_PHOTO_DETAILS:
