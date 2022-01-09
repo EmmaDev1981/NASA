@@ -1,14 +1,6 @@
 import axios from "axios";
 import * as dayjs from "dayjs";
 import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  createUserWithEmailAndPassword,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import {
   GET_PHOTOS_FROM_NASA,
   GET_PHOTOS_BY_FILTER,
   GET_MANIFESTS_BY_ROVER_MODEL,
@@ -40,6 +32,35 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
 } from "./constants";
+
+//FIREBASE
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9MWglxIwIf93zSeIW7LQdy06AEsqHAL4",
+  authDomain: "nasa-d1732.firebaseapp.com",
+  projectId: "nasa-d1732",
+  storageBucket: "nasa-d1732.appspot.com",
+  messagingSenderId: "40223537879",
+  appId: "1:40223537879:web:51649b21e40680804c8e92",
+  measurementId: "G-96FGPZKV8P",
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
+
+// Google Analytics
+const analytics = getAnalytics(app);
+logEvent(analytics, "notification_received");
 
 //get photos by default from API
 export function getPhotosFromApi() {

@@ -21,5 +21,6 @@ const store = createStore(
   presistedState,
   composeEnhancers(applyMiddleware(thunk))
 );
+
 store.subscribe(() => saveToLocalStorage(store.getState()));
 export default store;
