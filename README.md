@@ -3,6 +3,7 @@
 - [ ] React
 - [ ] Redux
 - [ ] LocalStorage
+- [ ] Firebase Auth
 - [ ] Material UI
 - [ ] Bootstrap
 - [ ] HTML / CSS
