@@ -3,12 +3,20 @@ import { NavLink } from 'react-router-dom'
 import './nav.css'
 import {connect} from 'react-redux'
 import {signOUT} from '../../Store/actions'
+import { useNavigate } from 'react-router-dom';
 
 function NavBar({favorites, userLogged, signOUT}) {
+
+  const navigate = useNavigate();
 
   var favItems = 0;
   if(favorites !== 'undefined' && favorites.length > 0) {
     favItems = favorites.length
+  }
+
+  const handleSignOut = () => {
+    signOUT()
+    navigate('/home')
   }
 
   return (
@@ -32,7 +40,7 @@ function NavBar({favorites, userLogged, signOUT}) {
         <button>ABOUT</button>
       </NavLink>
       {userLogged ? (
-        <button onClick={signOUT} >SIGN-OUT</button>
+        <button onClick={handleSignOut} >SIGN-OUT</button>
       ) : (
         <NavLink to="/signup">
           <button>SIGN-UP</button>

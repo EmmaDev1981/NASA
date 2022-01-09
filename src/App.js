@@ -9,16 +9,17 @@ import Details from "./components/Pages/Details/details";
 import About from "./components/Pages/about/about";
 import Signup from "./components/Pages/Login/signup";
 import Page404 from "./components/Pages/Page404/page404";
+import {connect} from 'react-redux'
 
-function App() {
-  return (
+function App({isAuthenticated}) {
+   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/favorites" element={<Favorites />} />
-        <Route exact path="/apod" element={<Apod />} />
-        <Route exact path="/epic" element={<Epic />} />
+        <Route exact path="/apod" element={isAuthenticated ? <Apod /> : <Signup/>} />
+        <Route exact path="/epic" element={isAuthenticated ? <Epic /> : <Signup/>} />
         <Route exact path='/details' element={<Details/>} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/signup" element={<Signup />} />
@@ -28,4 +29,10 @@ function App() {
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.userLogged
+  }
+}
+
+export default connect (mapStateToProps, null)(App);

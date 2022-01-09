@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./signup.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Navbar from "../Nav/nav";
 import Footer from "../Footer/footer";
 import { connect } from "react-redux";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import {
   doSignUpwithEmailAndPassword,
   doSignInwithEmailAndPassword,
@@ -16,10 +18,19 @@ function Signup({
   doGoogleLoginAction,
   logged,
 }) {
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
+    repeatPassword: ""
   });
+
+  console.log(user)
 
   const [toogleUser, setToogleUser] = useState("Sign Up");
 
@@ -37,28 +48,89 @@ function Signup({
 
   //* missing validate INPUTS
   const validate = () => {
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
-    if (regex.test(user.email) && user.password.length >= 5) {
-      return true;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (regex.test(user.email) && user.password.length === 8) {
+      if(user.password === user.repeatPassword){
+        return true;
+      } else {
+        handleWrongNotEqualPassword()
+        return false
+      }
     } else {
+      handleWrongEmailOrPassFormat()
       return false;
     }
   };
 
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
-    if (toogleUser === "Sign Up") {
-      doSignUpwithEmailAndPassword(user.email, user.password);
-      setUser({ email: "", password: "" });
-    } else {
-      doSignInwithEmailAndPassword(user.email, user.password);
-      setUser({ email: "", password: "" });
+    if(validate()){
+      if (toogleUser === "Sign Up") {
+        doSignUpwithEmailAndPassword(user.email, user.password);
+        setUser({ email: "", password: "", repeatPassword: "" });
+        handleLoginSuccess()
+      } else {
+        doSignInwithEmailAndPassword(user.email, user.password);
+        setUser({ email: "", password: "", repeatPassword: "" });
+        handleLoginSuccess()
+      }
     }
+  };
+
+  const handleGoogleLogin = () => {
+    doGoogleLoginAction()
+    // improve toast with Google... replace with async/await
+    setTimeout(() => {
+      handleLoginSuccess()
+    }, 6000)
+  }
+
+  //toast "login success"
+  const { enqueueSnackbar } = useSnackbar();
+  const handleLoginSuccess = () => {
+    enqueueSnackbar(
+      `LOGIN SUCCESS: Thanks!!`,
+      {
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "left",
+        },
+        TransitionComponent: Slide,
+        variant: "success",
+      }
+    );
+  }
+
+  //toast 1 "warning wrong email format or password"
+  const handleWrongEmailOrPassFormat = () => {
+    enqueueSnackbar(`WRONG EMAIL or PASSWORD FORMAT`, {
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "left",
+      },
+      TransitionComponent: Slide,
+      variant: "warning",
+    });
+  };
+
+  //toast 1 "warning wrong passwords, not equals"
+  const handleWrongNotEqualPassword = () => {
+    enqueueSnackbar(`PLEASE CHECK PASSWORD, NOT EQUAL`, {
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "left",
+      },
+      TransitionComponent: Slide,
+      variant: "warning",
+    });
   };
 
   return (
     <>
       <Navbar />
+      <div className="home-sub-title">
+        <h2>Login / Registration</h2>
+      </div>
       <div className="div-login-container">
         <div className="login-div">
           <form>
@@ -84,7 +156,19 @@ function Signup({
                 value={user.password}
                 onChange={handleInputChange}
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="Enter 8 digits password"
+              />
+            </div>
+            <div className="form-group">
+              <label> Confirm Password</label>
+              <input
+                disabled={logged}
+                type="password"
+                name="repeatPassword"
+                value={user.repeatPassword}
+                onChange={handleInputChange}
+                className="form-control"
+                placeholder="Confirm 8 digits password"
               />
             </div>
             <div className="text-center">
@@ -104,12 +188,12 @@ function Signup({
                 {toogleUser === "Sign In" ? "sign up" : "sign in"}
               </a>
             </p>
-            {logged ? (
+            {logged || screenWidth < 600 ? (
               <></>
             ) : (
               <p className="forgot-password text-center">
                 {`Login with `}
-                <a href="#" onClick={doGoogleLoginAction}>
+                <a href="#" onClick={handleGoogleLogin}>
                   Google Account
                 </a>
               </p>
