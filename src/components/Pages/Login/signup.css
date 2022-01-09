@@ -1,0 +1,16 @@
+.div-login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+
+.login-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    border: 1px solid black;
+    padding: 40px;
+}

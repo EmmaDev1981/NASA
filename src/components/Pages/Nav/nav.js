@@ -2,8 +2,9 @@ import React from "react";
 import { NavLink } from 'react-router-dom'
 import './nav.css'
 import {connect} from 'react-redux'
+import {signOUT} from '../../Store/actions'
 
-function NavBar({favorites}) {
+function NavBar({favorites, userLogged, signOUT}) {
 
   var favItems = 0;
   if(favorites !== 'undefined' && favorites.length > 0) {
@@ -30,14 +31,22 @@ function NavBar({favorites}) {
       <NavLink to="/about">
         <button>ABOUT</button>
       </NavLink>
+      {userLogged ? (
+        <button onClick={signOUT} >SIGN-OUT</button>
+      ) : (
+        <NavLink to="/signup">
+          <button>SIGN-UP</button>
+        </NavLink>
+      )}
     </div>
   );
 }
 
 function mapStateToProps(state) {
   return {
-    favorites: state.favorites
+    favorites: state.favorites,
+    userLogged: state.userLogged
   }
 }
 
-export default connect(mapStateToProps, null) (NavBar)
+export default connect(mapStateToProps, {signOUT}) (NavBar)

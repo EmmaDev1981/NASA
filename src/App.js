@@ -7,6 +7,7 @@ import Apod from "./components/Pages/Apod/apod";
 import Epic from "./components/Pages/Epic/epic"
 import Details from "./components/Pages/Details/details";
 import About from "./components/Pages/about/about";
+import Signup from "./components/Pages/Login/signup";
 import Page404 from "./components/Pages/Page404/page404";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/epic" element={<Epic />} />
         <Route exact path='/details' element={<Details/>} />
         <Route exact path="/about" element={<About />} />
+        <Route exact path="/signup" element={<Signup />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>

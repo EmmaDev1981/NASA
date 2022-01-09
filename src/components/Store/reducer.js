@@ -14,8 +14,15 @@ import {
   GET_PHOTOS_STATUS,
   GET_PHOTOS_ERROR,
   LOGIN,
-  LOGIN_ERROR,
   LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  SIGN_UP,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_ERROR,
+  SIGN_OUT,
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
 } from "./constants";
 
 const initialState = {
@@ -30,7 +37,8 @@ const initialState = {
   error: null,
   fetching_login: false,
   error_login: null,
-  userInfo: null
+  userInfo: null,
+  userLogged: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -154,6 +162,60 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         fetching_login: false,
         error_login: null,
+        userLogged: true,
+        userInfo: action.payload,
+      };
+
+    case SIGN_UP:
+      return {
+        ...state,
+        fetching_login: true,
+      };
+
+    case SIGN_UP_ERROR:
+      return {
+        ...state,
+        fetching_login: false,
+        error_login: action.payload,
+      };
+
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        fetching_login: false,
+        error_login: null,
+        userLogged: true,
+        userInfo: action.payload,
+      };
+
+    case SIGN_OUT:
+      return {
+        ...state,
+        fetching_login: false,
+        error_login: null,
+        userLogged: false,
+        userInfo: {},
+      };
+
+    case SIGN_IN:
+      return {
+        ...state,
+        fetching_login: true,
+      };
+
+    case SIGN_IN_ERROR:
+      return {
+        ...state,
+        fetching_login: false,
+        error_login: action.payload,
+      };
+
+    case SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        fetching_login: false,
+        error_login: null,
+        userLogged: true,
         userInfo: action.payload,
       };
 

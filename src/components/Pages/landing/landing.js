@@ -1,38 +1,46 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import imageLanding from "../../assets/landing.jpg";
 import { connect } from "react-redux";
-import * as dayjs from 'dayjs'
+import * as dayjs from "dayjs";
 import nasaMobile from "../../assets/nasaMobile.jpg";
-import { getPhotosFromApi, getManifestByModel,getPhotosFromApod, getInfoFromEpic,doGoogleLoginAction } from "../../Store/actions";
+import {
+  getPhotosFromApi,
+  getManifestByModel,
+  getPhotosFromApod,
+  getInfoFromEpic,
+} from "../../Store/actions";
 import "./landing.css";
 
-function Landing({ getPhotosFromApi, getManifestByModel, getPhotosFromApod, getInfoFromEpic, doGoogleLoginAction }) {
-
+function Landing({
+  getPhotosFromApi,
+  getManifestByModel,
+  getPhotosFromApod,
+  getInfoFromEpic,
+}) {
   const [screeWidth, setScreenWidth] = useState(window.innerWidth);
   const [data, setData] = useState({
     date: "",
     count: 4,
     startDate: "",
     endDate: "",
-  })
+  });
 
   useEffect(() => {
     setScreenWidth(window.innerWidth);
-    doGoogleLoginAction()
   }, []);
 
-  let today = dayjs().subtract(3, 'day').format().split("T")[0]
+  let today = dayjs().subtract(3, "day").format().split("T")[0];
 
   const fetchPhotos = useCallback(() => {
     getPhotosFromApi();
     getPhotosFromApod(data);
-    getInfoFromEpic(today)
+    getInfoFromEpic(today);
     getManifestByModel("curiosity");
-  }, [])
+  }, []);
 
   useEffect(() => {
-    fetchPhotos()
+    fetchPhotos();
   }, [fetchPhotos]);
 
   return (
@@ -54,5 +62,4 @@ export default connect(null, {
   getManifestByModel,
   getPhotosFromApod,
   getInfoFromEpic,
-  doGoogleLoginAction
 })(Landing);

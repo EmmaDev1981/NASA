@@ -1,6 +1,13 @@
 import axios from "axios";
 import * as dayjs from "dayjs";
-import { loginWithGoogle } from "../../firebase";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import {
   GET_PHOTOS_FROM_NASA,
   GET_PHOTOS_BY_FILTER,
@@ -16,9 +23,22 @@ import {
   GET_INFO_FROM_EPIC,
   GET_PHOTOS_STATUS,
   GET_PHOTOS_ERROR,
+
+  //Google login
   LOGIN,
-  LOGIN_ERROR,
   LOGIN_SUCCESS,
+  LOGIN_ERROR,
+
+  //sign UP email and Pass
+  SIGN_UP,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_ERROR,
+  SIGN_OUT,
+
+  //Sign IN with email and pass
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
 } from "./constants";
 
 //get photos by default from API
@@ -234,19 +254,90 @@ export let doGoogleLoginAction = () => (dispatch) => {
   dispatch({
     type: LOGIN,
   });
-  return loginWithGoogle()
-    .then((user) => {
-      console.log(user)
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+  return signInWithPopup(auth, provider).then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    dispatch({
+            type: LOGIN_SUCCESS,
+            payload: user,
+          });
+  })
+  .catch ((error) => {
+    dispatch({
+            type: LOGIN_ERROR,
+            payload: error.code,
+          });
+  })
+};
+
+//SIGN UP with email & password and then LOGIN automaticly
+export let doSignUpwithEmailAndPassword = (email, password) => (dispatch) => {
+  dispatch({
+    type: SIGN_UP,
+  });
+  const auth = getAuth();
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
       dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { ...user },
-      });
+              type: SIGN_UP_SUCCESS,
+              payload: user,
+            });
     })
-    .catch((err) => {
-      console.log(err);
-      dispatch({
-        type: LOGIN_ERROR,
-        payload: err.message,
+    .catch((error) => {
+            dispatch({
+        type: SIGN_UP_ERROR,
+        payload: error.code
       });
+    });
+};
+
+//SIGN IN with email & password (registered users)
+export let doSignInwithEmailAndPassword = (email, password) => (dispatch) => {
+  dispatch({
+    type: SIGN_IN,
+  });
+  const auth = getAuth();
+  return signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      dispatch({
+                    type: SIGN_IN_SUCCESS,
+                    payload: user,
+                  });
+    })
+    .catch((error) => {
+           dispatch({
+              type: SIGN_IN_ERROR,
+              payload: error.code,
+            });
+    });
+};
+
+//signOUT
+export let signOUT = () => (dispatch) => {
+
+  const auth = getAuth();
+  return signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      dispatch({
+              type: SIGN_OUT,
+            });
+    })
+    .catch((error) => {
+      console.log(error);
+      //* missing handdler error in action/reducer
+      // dispatch({
+      //   type: SIGN_OUT_ERROR,
+      //   payload: error.code,
+      // });
     });
 };
