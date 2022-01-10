@@ -10,6 +10,7 @@ import {
   doSignUpwithEmailAndPassword,
   doSignInwithEmailAndPassword,
   doGoogleLoginAction,
+  resetLogin
 } from "../../Store/actions";
 
 function Signup({
@@ -17,6 +18,9 @@ function Signup({
   doSignInwithEmailAndPassword,
   doGoogleLoginAction,
   logged,
+  error_login,
+  fetching_login,
+  resetLogin
 }) {
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -29,8 +33,6 @@ function Signup({
     password: "",
     repeatPassword: ""
   });
-
-  console.log(user)
 
   const [toogleUser, setToogleUser] = useState("Sign Up");
 
@@ -78,11 +80,8 @@ function Signup({
   };
 
   const handleGoogleLogin = () => {
+    resetLogin()
     doGoogleLoginAction()
-    // improve toast with Google... replace with async/await
-    setTimeout(() => {
-      handleLoginSuccess()
-    }, 6000)
   }
 
   //toast "login success"
@@ -113,7 +112,7 @@ function Signup({
     });
   };
 
-  //toast 1 "warning wrong passwords, not equals"
+  //toast 2 "warning wrong passwords, not equals"
   const handleWrongNotEqualPassword = () => {
     enqueueSnackbar(`PLEASE CHECK PASSWORD, NOT EQUAL`, {
       anchorOrigin: {
@@ -134,6 +133,16 @@ function Signup({
       <div className="div-login-container">
         <div className="login-div">
           <form>
+      <p className="forgot-password text-center">
+              {(error_login === null)
+                ? ("")
+                : ("LOGIN ERROR")}
+            </p>
+            <p className="forgot-password text-center">
+              {(fetching_login)
+                ? ("LOADING...")
+                : ("")}
+            </p>
             <h3 className="text-center">{toogleUser}</h3>
             <div className="form-group">
               <label>Email address</label>
@@ -209,6 +218,8 @@ function Signup({
 function mapStateToProps(state) {
   return {
     logged: state.userLogged,
+    error_login: state.error_login,
+    fetching_login: state.fetching_login
   };
 }
 
@@ -216,4 +227,5 @@ export default connect(mapStateToProps, {
   doSignUpwithEmailAndPassword,
   doSignInwithEmailAndPassword,
   doGoogleLoginAction,
+  resetLogin
 })(Signup);

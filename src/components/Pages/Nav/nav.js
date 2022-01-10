@@ -2,10 +2,12 @@ import React from "react";
 import { NavLink } from 'react-router-dom'
 import './nav.css'
 import {connect} from 'react-redux'
-import {signOUT} from '../../Store/actions'
+import {signOUT, resetLogin} from '../../Store/actions'
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 
-function NavBar({favorites, userLogged, signOUT}) {
+function NavBar({favorites, userLogged, signOUT, resetLogin}) {
 
   const navigate = useNavigate();
 
@@ -16,8 +18,23 @@ function NavBar({favorites, userLogged, signOUT}) {
 
   const handleSignOut = () => {
     signOUT()
+    resetLogin()
     navigate('/home')
+    handleLogoutMessage()
   }
+
+    //toast "Logout message"
+    const { enqueueSnackbar } = useSnackbar();
+    const handleLogoutMessage = () => {
+      enqueueSnackbar(`GOOD BYE!!!!`, {
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "left",
+        },
+        TransitionComponent: Slide,
+        variant: "info",
+      });
+    };
 
   return (
     <div className="navbar-app-div">
@@ -57,4 +74,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {signOUT}) (NavBar)
+export default connect(mapStateToProps, {signOUT, resetLogin}) (NavBar)
