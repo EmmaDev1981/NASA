@@ -23,7 +23,8 @@ import {
   SIGN_IN,
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
-  RESET_LOGIN
+  RESET_LOGIN,
+  RESET_PASSWORD_BY_EMAIL
 } from "./constants";
 
 const initialState = {
@@ -40,6 +41,7 @@ const initialState = {
   error_login: null,
   userInfo: null,
   userLogged: false,
+  email_sent: false
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -228,6 +230,12 @@ export default function rootReducer(state = initialState, action) {
           userLogged: false,
           userInfo: {},
         };
+
+        case RESET_PASSWORD_BY_EMAIL:
+          return {
+            ...state,
+            email_sent: true
+          };
 
     default:
       return state;

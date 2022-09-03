@@ -32,7 +32,8 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
 
-  RESET_LOGIN
+  RESET_LOGIN,
+  RESET_PASSWORD_BY_EMAIL
   
 } from "./constants";
 
@@ -44,6 +45,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
@@ -367,3 +369,19 @@ export function resetLogin() {
     dispatch({ type: RESET_LOGIN });
   };
 }
+
+// Password RESET
+export let doResetPasswordByEmail = (email) => (dispatch) => {
+  
+  const auth = getAuth();
+  return sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      dispatch({
+        type: RESET_PASSWORD_BY_EMAIL,
+      });
+    })
+    .catch((error) => {
+      console.log(error.code);
+    });
+};

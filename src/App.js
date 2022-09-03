@@ -18,8 +18,10 @@ function App({isAuthenticated}) {
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/favorites" element={<Favorites />} />
-        <Route exact path="/apod" element={isAuthenticated ? <Apod /> : <Signup/>} />
-        <Route exact path="/epic" element={isAuthenticated ? <Epic /> : <Signup/>} />
+        {/* <Route exact path="/apod" element={isAuthenticated ? <Apod /> : <Signup/>} />
+        <Route exact path="/epic" element={isAuthenticated ? <Epic /> : <Signup/>} /> */}
+        <Route exact path="/apod" element={<Apod />} />
+        <Route exact path="/epic" element={<Epic />} />
         <Route exact path='/details' element={<Details/>} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/signup" element={<Signup />} />

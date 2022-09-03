@@ -10,7 +10,8 @@ import {
   doSignUpwithEmailAndPassword,
   doSignInwithEmailAndPassword,
   doGoogleLoginAction,
-  resetLogin
+  resetLogin,
+  doResetPasswordByEmail
 } from "../../Store/actions";
 
 function Signup({
@@ -20,7 +21,8 @@ function Signup({
   logged,
   error_login,
   fetching_login,
-  resetLogin
+  resetLogin,
+  doResetPasswordByEmail
 }) {
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -82,6 +84,10 @@ function Signup({
   const handleGoogleLogin = () => {
     resetLogin()
     doGoogleLoginAction()
+  }
+
+  const handleResetPass = () => {
+    doResetPasswordByEmail(user.email)
   }
 
   //toast "login success"
@@ -179,6 +185,12 @@ function Signup({
                 className="form-control"
                 placeholder="Confirm 8 digits password"
               />
+            <p className="forgot-password text-center">
+                {`Forgot Password `}
+                <a href="#" onClick={handleResetPass}>
+                  sent email
+                </a>
+              </p>
             </div>
             <div className="text-center">
               <button
@@ -227,5 +239,6 @@ export default connect(mapStateToProps, {
   doSignUpwithEmailAndPassword,
   doSignInwithEmailAndPassword,
   doGoogleLoginAction,
-  resetLogin
+  resetLogin,
+  doResetPasswordByEmail
 })(Signup);

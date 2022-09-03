@@ -15,6 +15,13 @@ import './epic.css'
 
 function Epic({getInfoFromEpic, epicInfo, fetching, error}) {
 
+  const [button, setButton] = useState("OFF")
+
+    function handleClick() {
+      if (button === "OFF") setButton("ON")
+      if (button === "ON") setButton("OFF")
+    }
+
     const [startDate, setStartDate] = useState(new Date());
 
     let today = dayjs().subtract(3, 'day').format().split("T")[0]
@@ -97,6 +104,9 @@ function Epic({getInfoFromEpic, epicInfo, fetching, error}) {
             </div>
           </div>
           <div className="boton-apod-search">
+          <Button variant="primary" onClick={handleClick}>
+              {button}
+            </Button>
             <Button variant="primary" onClick={handleSearch}>
               SEARCH PHOTO
             </Button>

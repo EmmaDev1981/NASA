@@ -23,3 +23,4 @@ export const SIGN_IN = "SIGN_IN";
 export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
 export const SIGN_IN_ERROR = "SIGN_IN_ERROR";
 export const RESET_LOGIN = "RESET_LOGIN";
+export const RESET_PASSWORD_BY_EMAIL = "RESET_PASSWORD_BY_EMAIL";
