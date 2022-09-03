@@ -6,6 +6,7 @@ import store from './components/Store/index';
 import { SnackbarProvider } from 'notistack';
 import './index.css';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -15,15 +15,7 @@ import './epic.css'
 
 function Epic({getInfoFromEpic, epicInfo, fetching, error}) {
 
-  const [button, setButton] = useState("OFF")
-
-    function handleClick() {
-      if (button === "OFF") setButton("ON")
-      if (button === "ON") setButton("OFF")
-    }
-
     const [startDate, setStartDate] = useState(new Date());
-
     let today = dayjs().subtract(3, 'day').format().split("T")[0]
     useEffect(()=> {
         getInfoFromEpic(today)
@@ -66,8 +58,7 @@ function Epic({getInfoFromEpic, epicInfo, fetching, error}) {
     );
   }
 
-  const [imageUrl, setImageUrl] = useState(`https://api.nasa.gov/EPIC/archive/natural/2021/12/29/png/epic_1b_20211229001752.png?api_key=${process.env.REACT_APP_API}`)
-   
+  const [imageUrl, setImageUrl] = useState(`https://api.nasa.gov/EPIC/archive/natural/2021/12/29/png/epic_1b_20211229001752.png?api_key=${process.env.REACT_APP_API}`) 
   const handleSearch = () => {
         handleClickLoading()
         let date = startDate.toISOString().slice(0,10)
