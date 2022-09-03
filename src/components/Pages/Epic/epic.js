@@ -95,9 +95,9 @@ function Epic({getInfoFromEpic, epicInfo, fetching, error}) {
             </div>
           </div>
           <div className="boton-apod-search">
-          <Button variant="primary" onClick={handleClick}>
+          {/* <Button variant="primary" onClick={handleClick}>
               {button}
-            </Button>
+            </Button> */}
             <Button variant="primary" onClick={handleSearch}>
               SEARCH PHOTO
             </Button>
