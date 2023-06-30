@@ -4,6 +4,7 @@
 - [ ] Redux
 - [ ] LocalStorage
 - [ ] Firebase Auth
+- [ ] Google Analytics
 - [ ] Material UI
 - [ ] Bootstrap
 - [ ] HTML / CSS
