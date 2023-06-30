@@ -127,7 +127,7 @@ function Card(props) {
           </Link>
         )}
       </div>
-      <Popover
+      {/* <Popover
         id="mouse-over-popover"
         sx={{
           pointerEvents: "none",
@@ -146,7 +146,7 @@ function Card(props) {
         <Typography sx={{ p: 1 }}>{props.camera}</Typography>
         <Typography sx={{ p: 1 }}>{props.sol}</Typography>
         <Typography sx={{ p: 1 }}>{props.date}</Typography>
-      </Popover>
+      </Popover> */}
       <Popover
         id="mouse-over-popover"
         sx={{
@@ -164,7 +164,7 @@ function Card(props) {
         }}
         onClose={handlePopoverClose2}
         disableScrollLock
-        // disableRestoreFocus
+      // disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>Add to Favorites</Typography>
       </Popover>
@@ -185,7 +185,7 @@ function Card(props) {
         }}
         onClose={handlePopoverClose3}
         disableScrollLock
-        // disableRestoreFocus
+      // disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>Details</Typography>
       </Popover>

@@ -6,6 +6,7 @@ import Footer from "../Footer/footer";
 import { connect } from "react-redux";
 import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import { useNavigate } from "react-router-dom";
 import {
   doSignUpwithEmailAndPassword,
   doSignInwithEmailAndPassword,
@@ -37,6 +38,7 @@ function Signup({
   });
 
   const [toogleUser, setToogleUser] = useState("Sign Up");
+  const navigate = useNavigate()
 
   const handleToogle = () => {
     if (toogleUser === "Sign Up") {
@@ -54,7 +56,7 @@ function Signup({
   const validate = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (regex.test(user.email) && user.password.length === 8) {
-      if(user.password === user.repeatPassword){
+      if (user.password === user.repeatPassword) {
         return true;
       } else {
         handleWrongNotEqualPassword()
@@ -68,14 +70,16 @@ function Signup({
 
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
-    if(validate()){
+    if (validate) {
       if (toogleUser === "Sign Up") {
         doSignUpwithEmailAndPassword(user.email, user.password);
         setUser({ email: "", password: "", repeatPassword: "" });
+        navigate("/home");
         handleLoginSuccess()
       } else {
         doSignInwithEmailAndPassword(user.email, user.password);
         setUser({ email: "", password: "", repeatPassword: "" });
+        navigate("/home");
         handleLoginSuccess()
       }
     }
@@ -84,6 +88,7 @@ function Signup({
   const handleGoogleLogin = () => {
     resetLogin()
     doGoogleLoginAction()
+    navigate("/home");
   }
 
   const handleResetPass = () => {
@@ -106,7 +111,7 @@ function Signup({
     );
   }
 
-  //toast 1 "warning wrong email format or password"
+  // //toast 1 "warning wrong email format or password"
   const handleWrongEmailOrPassFormat = () => {
     enqueueSnackbar(`WRONG EMAIL or PASSWORD FORMAT`, {
       anchorOrigin: {
@@ -118,7 +123,7 @@ function Signup({
     });
   };
 
-  //toast 2 "warning wrong passwords, not equals"
+  // //toast 2 "warning wrong passwords, not equals"
   const handleWrongNotEqualPassword = () => {
     enqueueSnackbar(`PLEASE CHECK PASSWORD, NOT EQUAL`, {
       anchorOrigin: {
@@ -139,7 +144,7 @@ function Signup({
       <div className="div-login-container">
         <div className="login-div">
           <form>
-      <p className="forgot-password text-center">
+            <p className="forgot-password text-center">
               {(error_login === null)
                 ? ("")
                 : ("LOGIN ERROR")}
@@ -185,7 +190,7 @@ function Signup({
                 className="form-control"
                 placeholder="Confirm 8 digits password"
               />
-            <p className="forgot-password text-center">
+              <p className="forgot-password text-center">
                 {`Forgot Password `}
                 <a href="#" onClick={handleResetPass}>
                   sent email

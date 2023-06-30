@@ -25,6 +25,14 @@ import {
   deleteSearchParamFavorites
 } from "../../Store/actions";
 
+const popOverSettings = {
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "left",
+      },
+      TransitionComponent: Slide,
+    }
+
 function Filter({
   getPhotosByModel,
   getManifestByModel,
@@ -55,17 +63,10 @@ function Filter({
     enqueueSnackbar(
       `ERROR MESSAGE: ${error.message}`,
       {
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        TransitionComponent: Slide,
-        variant: "error",
-      }
+        ...popOverSettings, variant: "error"
+       }
     );
   }
-
-
 
   //input reference
   const focusInputRef = useRef();
@@ -184,12 +185,7 @@ function Filter({
     enqueueSnackbar(
       `SEARCH: ${data.rover.toUpperCase()} -- ${data.camera.toUpperCase()} -- ${data.date.toUpperCase()}`,
       {
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        TransitionComponent: Slide,
-        variant: "success",
+       ...popOverSettings, variant: "success"
       }
     );
   };
@@ -197,25 +193,15 @@ function Filter({
   //toast 2 "SEARCH...."
   const handleClickVariantSearhFav = () => {
     enqueueSnackbar(`SEARCH BY SAVED PARAMETERS SUCCESS`, {
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "left",
-      },
-      TransitionComponent: Slide,
-      variant: "success",
-    });
+      ...popOverSettings, variant: "success"
+     });
   };
 
   //toast 3 "warning search delete...."
   const handleClickRemoveItemFromSearch = () => {
     enqueueSnackbar(`SAVED SEARCH PARAMETER DELETED`, {
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "left",
-      },
-      TransitionComponent: Slide,
-      variant: "warning",
-    });
+      ...popOverSettings, variant: "warning"
+     });
   };
 
   return (
@@ -332,11 +318,9 @@ function Filter({
         {searchedFavorites.length > 0 &&
           searchedFavorites.map((g) => (
             <option key={g.id} value={g.id}>
-              {`Search ID: ${g.id && g.id} <> Model: ${
-                g.rover && g.rover.toUpperCase()
-              } <> Date: ${g.date && g.date} <> Camera: ${
-                g.camera && g.camera.toUpperCase()
-              } `}
+              {`Search ID: ${g.id && g.id} <> Model: ${g.rover && g.rover.toUpperCase()
+                } <> Date: ${g.date && g.date} <> Camera: ${g.camera && g.camera.toUpperCase()
+                } `}
             </option>
           ))}
       </select>
@@ -362,9 +346,8 @@ function Filter({
         disableRestoreFocus
         disableScrollLock
       >
-        <Typography sx={{ p: 1 }}>{`Select an EARTH DATE between: ${
-          manifest && manifest.photo_manifest.landing_date
-        } and ${manifest && manifest.photo_manifest.max_date}`}</Typography>
+        <Typography sx={{ p: 1 }}>{`Select an EARTH DATE between: ${manifest && manifest.photo_manifest.landing_date
+          } and ${manifest && manifest.photo_manifest.max_date}`}</Typography>
       </Popover>
       <Popover
         id="mouse-over-popover"
@@ -387,9 +370,8 @@ function Filter({
       >
         <Typography
           sx={{ p: 1 }}
-        >{`Select a MARTIAN SOL DATE between: ${0} and ${
-          manifest && manifest.photo_manifest.max_sol
-        }`}</Typography>
+        >{`Select a MARTIAN SOL DATE between: ${0} and ${manifest && manifest.photo_manifest.max_sol
+          }`}</Typography>
       </Popover>
       <div>
         <Modal show={show} onHide={handleClose}>

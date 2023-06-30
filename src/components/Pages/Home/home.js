@@ -4,7 +4,6 @@ import Paginate from "../Pagination/pagination";
 import Card from "../Card/card";
 import Filter from "../Filter/filter";
 import { connect } from "react-redux";
-import { getPhotosFromApi, getManifestByModel } from "../../Store/actions";
 import Manifest from "../Manifest/manifest";
 import Footer from "../Footer/footer";
 import Lazyload from "react-lazyload";
@@ -13,18 +12,10 @@ import "./home.css";
 
 function Home({ photos }) {
 
-  const fetchPhotos = useCallback(() => {
-    getPhotosFromApi();
-    getManifestByModel("curiosity");
-  }, [])
-
-  useEffect(() => {
-    fetchPhotos()
-  }, [fetchPhotos]);
-
   //pagination index
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(25); //max photos x page
+
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
   var currentCards;
@@ -43,17 +34,17 @@ function Home({ photos }) {
       <div className="home-sub-title">
         <h2>Mars Rover Photo Missions</h2>
       </div>
-      <Manifest />
       <Filter />
+      <Manifest />
       <div className="games-div">
         {currentCards.length >= 1 ? (
           currentCards.map((g) => (
-            <Lazyload 
-            key={g.id}
-            height={200} 
-            once={true}
-            offset={100}
-            debounce={300}
+            <Lazyload
+              key={g.id}
+              height={200}
+              once={true}
+              offset={100}
+              debounce={300}
             >
               <Card
                 key={g.id}
@@ -93,7 +84,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getPhotosFromApi,
-  getManifestByModel,
-})(Home);
+export default connect(mapStateToProps, null)(Home);
