@@ -14,7 +14,7 @@ export default function Home() {
 
   const photos = useSelector((state) => state.photos)
 
-  //pagination index
+  //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [cardPerPage] = useState(25); //max photos x page
 
