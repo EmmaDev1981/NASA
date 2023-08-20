@@ -12,7 +12,7 @@ import {
   doSignInwithEmailAndPassword,
   doGoogleLoginAction,
   resetLogin,
-  doResetPasswordByEmail
+  doResetPasswordByEmail,
 } from "../../Store/actions";
 
 function Signup({
@@ -25,6 +25,7 @@ function Signup({
   resetLogin,
   doResetPasswordByEmail
 }) {
+
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -111,7 +112,7 @@ function Signup({
     );
   }
 
-  // //toast 1 "warning wrong email format or password"
+  //* toast 1 "warning wrong email format or password"
   const handleWrongEmailOrPassFormat = () => {
     enqueueSnackbar(`WRONG EMAIL or PASSWORD FORMAT`, {
       anchorOrigin: {
@@ -123,7 +124,7 @@ function Signup({
     });
   };
 
-  // //toast 2 "warning wrong passwords, not equals"
+  //* toast 2 "warning wrong passwords, not equals"
   const handleWrongNotEqualPassword = () => {
     enqueueSnackbar(`PLEASE CHECK PASSWORD, NOT EQUAL`, {
       anchorOrigin: {

@@ -27,7 +27,7 @@ import {
 
 const popOverSettings = {
       anchorOrigin: {
-        vertical: "top",
+        vertical: "bottom",
         horizontal: "left",
       },
       TransitionComponent: Slide,
@@ -199,8 +199,8 @@ function Filter({
 
   //toast 3 "warning search delete...."
   const handleClickRemoveItemFromSearch = () => {
-    enqueueSnackbar(`SAVED SEARCH PARAMETER DELETED`, {
-      ...popOverSettings, variant: "warning"
+    enqueueSnackbar(`SEARCH PARAMETER DELETED`, {
+      ...popOverSettings, variant: "success"
      });
   };
 

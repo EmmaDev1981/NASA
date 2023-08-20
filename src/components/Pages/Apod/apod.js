@@ -1,11 +1,10 @@
 import React, {useState, useRef, useEffect} from 'react'
 import Navbar from '../Nav/nav'
-import {connect} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {getPhotosFromApod} from '../../Store/actions'
 import Pagination from '../Pagination/pagination'
 import CardApod from '../CardApod/cardapod'
 import { Button } from 'react-bootstrap'
-import './apod.css'
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Footer from '../Footer/footer'
@@ -14,8 +13,15 @@ import { useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 import 'bootstrap/dist/css/bootstrap.css';
 import Spinner from 'react-bootstrap/Spinner';
+import './apod.css'
 
-function Apod({getPhotosFromApod, apodPhotos, fetching, error}) {
+export default function Apod() {
+
+  const apodPhotos = useSelector( state => state.apodPhotos)
+  const fetching = useSelector( state => state.fetching)
+  const error = useSelector( state => state.error)
+
+  const dispatch = useDispatch()
 
   //input reference
   const focusInputRef = useRef();
@@ -86,7 +92,7 @@ function Apod({getPhotosFromApod, apodPhotos, fetching, error}) {
     const handleSearch = () => {
       if(validate()) {
         handleClickLoading()
-        getPhotosFromApod(data)
+        dispatch(getPhotosFromApod(data))
       } else {
         handleClickBabInput()
       }
@@ -207,13 +213,3 @@ function Apod({getPhotosFromApod, apodPhotos, fetching, error}) {
       </div>
     );
 }
-
-function mapStateToProps(state) {
-    return {
-        apodPhotos: state.apodPhotos,
-        fetching: state.fetching,
-        error: state.error
-    }
-}
-
-export default connect (mapStateToProps, {getPhotosFromApod})(Apod)

@@ -1,16 +1,18 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState } from "react";
 import Navigation from "../Nav/nav";
 import Paginate from "../Pagination/pagination";
 import Card from "../Card/card";
 import Filter from "../Filter/filter";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import Manifest from "../Manifest/manifest";
 import Footer from "../Footer/footer";
 import Lazyload from "react-lazyload";
 import noresults from '../../assets/noresults.jpeg'
 import "./home.css";
 
-function Home({ photos }) {
+export default function Home() {
+
+  const photos = useSelector((state) => state.photos)
 
   //pagination index
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,11 +79,3 @@ function Home({ photos }) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    photos: state.photos,
-  };
-};
-
-export default connect(mapStateToProps, null)(Home);

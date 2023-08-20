@@ -10,10 +10,10 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <SnackbarProvider maxSnack={3}>
-    <App />
-    </SnackbarProvider>
-    </Provider> 
+      <SnackbarProvider maxSnack={3}>
+        <App />
+      </SnackbarProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

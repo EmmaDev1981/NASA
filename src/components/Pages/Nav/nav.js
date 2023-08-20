@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import {signOUT, resetLogin} from '../../Store/actions'
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from "notistack";
@@ -19,6 +19,8 @@ import Tooltip from '@mui/material/Tooltip';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 function NavBar({favorites, userLogged, signOUT, resetLogin}) {
+
+  const user = useSelector(state => state.userInfo)
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -55,6 +57,14 @@ function NavBar({favorites, userLogged, signOUT, resetLogin}) {
   var favItems = 0;
   if(favorites !== 'undefined' && favorites.length > 0) {
     favItems = favorites.length
+  }
+
+  const handleLogin = () => {
+    if(!userLogged) {
+      navigate('/signup')
+    } else {
+      handleSignOut()
+    }
   }
 
   const handleSignOut = () => {
@@ -144,8 +154,8 @@ function NavBar({favorites, userLogged, signOUT, resetLogin}) {
               <MenuItem onClick={() => navigate('/about')}>
                 <Typography textAlign="center">ABOUT</Typography>
               </MenuItem>
-              <MenuItem onClick={() => navigate('/signup')}>
-                <Typography textAlign="center">LOGIN</Typography>
+              <MenuItem onClick={handleLogin}>
+                <Typography textAlign="center">{userLogged ? "LOGOUT" : "LOGIN"}</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -162,7 +172,7 @@ function NavBar({favorites, userLogged, signOUT, resetLogin}) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'red',
+              color: 'white',
               textDecoration: 'none',
             }}
           >
@@ -200,10 +210,10 @@ function NavBar({favorites, userLogged, signOUT, resetLogin}) {
               ABOUT
             </Button>
             <Button
-              onClick={() => navigate('/signup')}
+              onClick={handleLogin}
               sx={iconStyle}
             >
-              LOGIN
+              {userLogged ? "LOGOUT" : "LOGIN"}
             </Button>
 
           </Box>
@@ -211,6 +221,9 @@ function NavBar({favorites, userLogged, signOUT, resetLogin}) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {
+                  userLogged ? <h6 style={{padding: 10}}>{user.displayName}</h6> : null
+                }
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>

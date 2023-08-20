@@ -2,13 +2,14 @@ import { React, useState } from "react";
 import Navigation from "../Nav/nav";
 import Pagination from "../Pagination/pagination";
 import CardFav from "../CardFav/cardFav";
-import { connect } from "react-redux";
-import { getPhotosFromApi } from "../../Store/actions";
+import { useSelector} from "react-redux";
 import Footer from "../Footer/footer";
 import noFavorite from '../../assets/noFavorite.jpg'
 import "./favorites.css";
 
-function Favorites({ photos }) {
+export default function Favorites() {
+
+  const photos = useSelector((state) => state.favorites)
   
   //pagination index
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,11 +65,3 @@ function Favorites({ photos }) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    photos: state.favorites,
-  };
-};
-
-export default connect(mapStateToProps, { getPhotosFromApi })(Favorites);
